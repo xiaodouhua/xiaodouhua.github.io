@@ -1399,8 +1399,8 @@ pre .javascript .function {
   color: #777;
   text-shadow: 0 1px #fff;
   background: #fff;
-  -webkit-box-shadow: 0 -1px 4px #ccc inset;
-  box-shadow: 0 -1px 4px #ccc inset;
+  -webkit-box-shadow: 1px 2px 3px #ddd;
+  box-shadow: 1px 2px 3px #ddd;
   border: 1px solid #ccc;
   padding: 15px;
   -webkit-border-radius: 3px;
