@@ -1261,7 +1261,7 @@ a.article-title:hover {
 }
 .article-entry pre,
 .article-entry code {
-  font-family: Consolas, Monaco, Menlo, monospace;
+  font-family: "Source Code Pro", Consolas, Monaco, Menlo, Consolas, monospace;
 }
 .article-entry code {
   background: #f0f0f0;
@@ -1326,7 +1326,7 @@ a.article-title:hover {
 }
 .article-entry .gist .gist-file {
   border: none;
-  font-family: Consolas, Monaco, Menlo, monospace;
+  font-family: "Source Code Pro", Consolas, Monaco, Menlo, Consolas, monospace;
   margin: 0;
 }
 .article-entry .gist .gist-file .gist-data {
