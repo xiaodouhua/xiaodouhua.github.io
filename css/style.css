@@ -562,6 +562,7 @@ body {
 }
 .article-header {
   padding: 20px 20px 0;
+  margin-bottom: 30px;
 }
 .article-title {
   text-decoration: none;
@@ -594,7 +595,7 @@ a.article-title:hover {
 .article-entry p,
 .article-entry table {
   line-height: 1.6em;
-  margin: 1.6em 0;
+  margin: entry-margin;
 }
 .article-entry h1,
 .article-entry h2,
@@ -611,7 +612,7 @@ a.article-title:hover {
 .article-entry h5,
 .article-entry h6 {
   line-height: 1.1em;
-  margin: 1.1em 0;
+  margin: entry-title-margin;
 }
 .article-entry a {
   color: #258fb8;
@@ -652,14 +653,13 @@ a.article-title:hover {
 }
 .article-entry blockquote {
   font-family: "Droid Serif", Georgia, Serif;
-  margin: 1.6em 0;
-  padding: 0 0.8em;
-  border-left: 4px solid #ddd;
-  color: #777;
+  font-size: 1.4em;
+  margin: 1.6em 20px;
+  text-align: center;
 }
 .article-entry blockquote footer {
   font-size: 14px;
-  margin: 1.6em 0;
+  margin: 20px 0;
   font-family: "Helvetica Neue", "Helvetica", "Hiragino Sans GB", "Microsoft YaHei", "Source Han Sans CN", "WenQuanYi Micro Hei", Arial, sans-serif;
 }
 .article-entry blockquote footer cite:before {
@@ -703,6 +703,35 @@ a.article-title:hover {
   height: 100%;
   margin-top: 0;
 }
+.article-entry a.fancybox {
+  display: block;
+  text-align: center;
+  line-height: 0;
+}
+.article-entry .img-wrap {
+  position: relative;
+  display: inline-block;
+  margin: 0 auto;
+  min-width: 48px;
+  min-height: 48px;
+}
+.article-entry .img-wrap:before {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  width: 48px;
+  height: 48px;
+  margin-left: -24px;
+  margin-top: -24px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  background: url("preloader") center center no-repeat, rgba(0,0,0,0.9);
+  -webkit-background-size: 24px 24px;
+  -moz-background-size: 24px 24px;
+  background-size: 24px 24px;
+}
 .article-more-link a {
   display: inline-block;
   line-height: 1em;
@@ -724,7 +753,7 @@ a.article-title:hover {
   zoom: 1;
   font-size: 0.85em;
   line-height: 1.6em;
-  border-top: 2px solid #ddd;
+  border-top: 1px solid #ddd;
   padding-top: 1.6em;
   margin: 0 20px 20px;
 }
@@ -742,6 +771,10 @@ a.article-title:hover {
 }
 .article-footer a:hover {
   color: #555;
+}
+.article-tag-list {
+  list-style: none !important;
+  margin: 0px 5px !important;
 }
 .article-tag-list-item {
   float: left;
@@ -892,29 +925,18 @@ a.article-title:hover {
 .article-share-links:after {
   clear: both;
 }
-.article-share-weibo,
-.article-share-weixin,
-.article-share-qq,
-.article-share-renren,
-.article-share-more,
 .article-share-twitter,
 .article-share-facebook,
 .article-share-pinterest,
 .article-share-google {
   width: 50px;
-  height: 50px;
+  height: 36px;
   display: block;
   float: left;
   position: relative;
   color: #999;
   text-shadow: 0 1px #fff;
-  cursor: pointer;
 }
-.article-share-weibo:before,
-.article-share-weixin:before,
-.article-share-qq:before,
-.article-share-renren:before,
-.article-share-more:before,
 .article-share-twitter:before,
 .article-share-facebook:before,
 .article-share-pinterest:before,
@@ -930,51 +952,11 @@ a.article-title:hover {
   margin-left: -10px;
   text-align: center;
 }
-.article-share-weibo:hover,
-.article-share-weixin:hover,
-.article-share-qq:hover,
-.article-share-renren:hover,
-.article-share-more:hover,
 .article-share-twitter:hover,
 .article-share-facebook:hover,
 .article-share-pinterest:hover,
 .article-share-google:hover {
   color: #fff;
-}
-.article-share-weibo:before {
-  content: "\f18a";
-}
-.article-share-weibo:hover {
-  background: #d44137;
-  text-shadow: 0 1px #b02f26;
-}
-.article-share-weixin:before {
-  content: "\f1d7";
-}
-.article-share-weixin:hover {
-  background: #38ad5a;
-  text-shadow: 0 1px #2d8a48;
-}
-.article-share-qq:before {
-  content: "\f1d6";
-}
-.article-share-qq:hover {
-  background: #39b2e2;
-  text-shadow: 0 1px #1d96c5;
-}
-.article-share-renren:before {
-  content: "\f18b";
-}
-.article-share-renren:hover {
-  background: #105ba3;
-  text-shadow: 0 1px #0d4982;
-}
-.article-share-more:before {
-  content: "\f067";
-}
-.article-share-more:hover {
-  background: #333;
-  text-shadow: 0 1px #292929;
 }
 .article-share-twitter:before {
   content: "\f099";
