@@ -125,7 +125,8 @@ body,
 }
 body {
   background: #eee;
-  font: 14px/1.6em "Helvetica Neue", "Helvetica", "Hiragino Sans GB", "Microsoft YaHei", "Source Han Sans CN", "WenQuanYi Micro Hei", Arial, sans-serif;
+  font: 14px 'Open Sans', "Microsoft Yahei";
+  font-weight: 300;
   -webkit-text-size-adjust: 100%;
 }
 .outer {
@@ -226,7 +227,7 @@ body {
 .widget h6 {
   font-weight: bold;
   color: #555;
-  font-family: "Helvetica Neue", "Helvetica", "Hiragino Sans GB", "Microsoft YaHei", "Source Han Sans CN", "WenQuanYi Micro Hei", Arial, sans-serif;
+  font-family: "Source Code Pro", Consolas, Monaco, Menlo, Consolas, monospace;
 }
 .article-entry h1 a,
 .widget h1 a,
