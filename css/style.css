@@ -226,7 +226,7 @@ body {
 .widget h6 {
   font-weight: bold;
   color: #555;
-  font-family: "Droid Serif", Georgia, Serif;
+  font-family: "Helvetica Neue", "Helvetica", "Hiragino Sans GB", "Microsoft YaHei", "Source Han Sans CN", "WenQuanYi Micro Hei", Arial, sans-serif;
 }
 .article-entry h1 a,
 .widget h1 a,
@@ -421,7 +421,7 @@ body {
   text-align: center;
   height: 40px;
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 0;
   margin-top: -20px;
 }
@@ -448,7 +448,7 @@ body {
   color: #687e91;
 }
 #subtitle-wrap {
-  margin-top: 16px;
+  margin-top: 20px;
 }
 #main-nav {
   float: left;
