@@ -210,66 +210,9 @@ body {
   background: #fff;
   -webkit-box-shadow: 1px 2px 3px #ddd;
   box-shadow: 1px 2px 3px #ddd;
+  border: 1px solid #ddd;
   -webkit-border-radius: 3px;
   border-radius: 3px;
-}
-.article-entry h1,
-.widget h1,
-.article-entry h2,
-.widget h2,
-.article-entry h3,
-.widget h3,
-.article-entry h4,
-.widget h4,
-.article-entry h5,
-.widget h5,
-.article-entry h6,
-.widget h6 {
-  font-weight: bold;
-  color: #555;
-  font-family: "Microsoft Yahei";
-}
-.article-entry h1 a,
-.widget h1 a,
-.article-entry h2 a,
-.widget h2 a,
-.article-entry h3 a,
-.widget h3 a,
-.article-entry h4 a,
-.widget h4 a,
-.article-entry h5 a,
-.widget h5 a,
-.article-entry h6 a,
-.widget h6 a {
-  color: #555;
-  text-decoration: none;
-}
-.article-entry h1 a:hover,
-.widget h1 a:hover,
-.article-entry h2 a:hover,
-.widget h2 a:hover,
-.article-entry h3 a:hover,
-.widget h3 a:hover,
-.article-entry h4 a:hover,
-.widget h4 a:hover,
-.article-entry h5 a:hover,
-.widget h5 a:hover,
-.article-entry h6 a:hover,
-.widget h6 a:hover {
-  color: #258fb8;
-}
-.article-entry h2,
-.widget h2,
-.article-entry h3,
-.widget h3,
-.article-entry h4,
-.widget h4,
-.article-entry h5,
-.widget h5,
-.article-entry h6,
-.widget h6 {
-  font-weight: 600;
-  margin-bottom: 10px;
 }
 .article-entry h1,
 .widget h1 {
