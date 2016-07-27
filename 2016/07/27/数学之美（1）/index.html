@@ -9,7 +9,9 @@
   <meta name="description" content="文字与语言
 文字编码符合最短编码原理
 书面文短，压缩了体积
-词是有限的封闭集合，语言是无限的开放集合，有着许多例外  统计概率模型程序设计语言是上下文无关文法，复杂度为长度的平方。语言是上下文有关文法，复杂度是长度的6次方。主要解决的是一个词语序列是否构成一个可理解的合理的句子。">
+词是有限的封闭集合，语言是无限的开放集合，有着许多例外  
+
+统计概率模型程序设计语言是上下文无关文法，复杂度为长度的平方。语言是上下文有关文法，复杂度是长度的6次方。主要解决的是一个词语序列是否构成一个可理解的合理的句子。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数学之美（1）">
 <meta property="og:url" content="xiaodouhua.github.io/2016/07/27/数学之美（1）/index.html">
@@ -17,14 +19,18 @@
 <meta property="og:description" content="文字与语言
 文字编码符合最短编码原理
 书面文短，压缩了体积
-词是有限的封闭集合，语言是无限的开放集合，有着许多例外  统计概率模型程序设计语言是上下文无关文法，复杂度为长度的平方。语言是上下文有关文法，复杂度是长度的6次方。主要解决的是一个词语序列是否构成一个可理解的合理的句子。">
-<meta property="og:updated_time" content="2016-07-27T14:38:28.437Z">
+词是有限的封闭集合，语言是无限的开放集合，有着许多例外  
+
+统计概率模型程序设计语言是上下文无关文法，复杂度为长度的平方。语言是上下文有关文法，复杂度是长度的6次方。主要解决的是一个词语序列是否构成一个可理解的合理的句子。">
+<meta property="og:updated_time" content="2016-07-27T14:43:47.869Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数学之美（1）">
 <meta name="twitter:description" content="文字与语言
 文字编码符合最短编码原理
 书面文短，压缩了体积
-词是有限的封闭集合，语言是无限的开放集合，有着许多例外  统计概率模型程序设计语言是上下文无关文法，复杂度为长度的平方。语言是上下文有关文法，复杂度是长度的6次方。主要解决的是一个词语序列是否构成一个可理解的合理的句子。">
+词是有限的封闭集合，语言是无限的开放集合，有着许多例外  
+
+统计概率模型程序设计语言是上下文无关文法，复杂度为长度的平方。语言是上下文有关文法，复杂度是长度的6次方。主要解决的是一个词语序列是否构成一个可理解的合理的句子。">
   
   
     <link rel="icon" href="/favicon.png">
@@ -108,11 +114,16 @@
         <h3 id="文字与语言"><a href="#文字与语言" class="headerlink" title="文字与语言"></a>文字与语言</h3><ul>
 <li>文字编码符合最短编码原理</li>
 <li>书面文短，压缩了体积</li>
-<li>词是有限的封闭集合，语言是无限的开放集合，有着许多例外  <h3 id="统计概率模型"><a href="#统计概率模型" class="headerlink" title="统计概率模型"></a>统计概率模型</h3>程序设计语言是上下文无关文法，复杂度为长度的平方。语言是上下文有关文法，复杂度是长度的6次方。主要解决的是一个词语序列是否构成一个可理解的合理的句子。  <a id="more"></a>   
-统计概率模型利用的是一个句子出现的概率简化到马尔科夫模型:<br>$$ p(s)=p(w_1,w_2,\cdots,w_n) =p(w_1)<em>p(w_2|w_1)</em>\cdots*p(w<em>n|w</em>{n-1}) $$<br>$$ p(w<em>n|w</em>{n-1})=\frac{p(w<em>{n-1},w</em>{n})}{p(w<em>{n-1})}=\frac{num(w</em>{n-1},w<em>{n})}{num(w</em>{n-1})} $$<br>即统计$ (w_{n-1},w<em>n) $和$ w</em>{n-1} $出现的次数，相除即可。   </li>
+<li>词是有限的封闭集合，语言是无限的开放集合，有着许多例外  </li>
+</ul>
+<h3 id="统计概率模型"><a href="#统计概率模型" class="headerlink" title="统计概率模型"></a>统计概率模型</h3><p>程序设计语言是上下文无关文法，复杂度为长度的平方。语言是上下文有关文法，复杂度是长度的6次方。主要解决的是一个词语序列是否构成一个可理解的合理的句子。<br><a id="more"></a><br>统计概率模型利用的是一个句子出现的概率简化到马尔科夫模型:<br>$$ p(s)=p(w_1,w_2,\cdots,w_n) =p(w_1)<em>p(w_2|w_1)</em>\cdots*p(w<em>n|w</em>{n-1}) $$<br>$$ p(w<em>n|w</em>{n-1})=\frac{p(w<em>{n-1},w</em>{n})}{p(w<em>{n-1})}=\frac{num(w</em>{n-1},w<em>{n})}{num(w</em>{n-1})} $$<br>即统计$ (w_{n-1},w<em>n) $和$ w</em>{n-1} $出现的次数，相除即可。  </p>
+<ul>
 <li>也可用高阶马尔科夫模型（一般为三元模型）。</li>
 <li>当词语出现的次数过于少时，要注意零概率问题和平滑方法。利用古德-图灵估计公式，将看得到的所有概率和调低一点，剩下的给看不见的小概率。  </li>
-<li>将其用于中文分词：将一个句子用几种分词方法分割为不同的序列，通过比较它们的概率，最大的就是最准确的。分词是一个动态规划问题。通过维特比（Viterbi）算法解决。  <h3 id="隐马尔科夫模型-HMM"><a href="#隐马尔科夫模型-HMM" class="headerlink" title="隐马尔科夫模型(HMM)"></a>隐马尔科夫模型(HMM)</h3><a href="https://www.zhihu.com/question/20962240" target="_blank" rel="external">知乎</a>上有关于HMM的详细介绍。主要有三个问题：  </li>
+<li>将其用于中文分词：将一个句子用几种分词方法分割为不同的序列，通过比较它们的概率，最大的就是最准确的。分词是一个动态规划问题。通过维特比（Viterbi）算法解决。   </li>
+</ul>
+<h3 id="隐马尔科夫模型-HMM"><a href="#隐马尔科夫模型-HMM" class="headerlink" title="隐马尔科夫模型(HMM)"></a>隐马尔科夫模型(HMM)</h3><p><a href="https://www.zhihu.com/question/20962240" target="_blank" rel="external">知乎</a>上有关于HMM的详细介绍。主要有三个问题：  </p>
+<ul>
 <li>根据已知模型计算产生序列的概率</li>
 <li>根据产生的序列推测状态序列</li>
 <li>给定足够数据量，估计HMM中的参数<br>主要算法有baum-welch algorithm ,viterbi algorithm, forward algorithm.   </li>
@@ -124,7 +135,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="xiaodouhua.github.io/2016/07/27/数学之美（1）/" data-id="cir500ctv000230u77hgfiagc" class="article-share-link" data-share="baidu" data-title="数学之美（1）">Share</a>
+        <a data-url="xiaodouhua.github.io/2016/07/27/数学之美（1）/" data-id="cir5056fy0002hgu7inwxt907" class="article-share-link" data-share="baidu" data-title="数学之美（1）">Share</a>
       
 
       
