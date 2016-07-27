@@ -6,34 +6,34 @@
   
   <title>dou&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="title: 数学之美（1）date: 2016-07-27 22:25:23tags:  [数学，算法]  
-categories: 技术   文字与语言
+  <meta name="description" content="title: 数学之美（1）date: 2016-07-27 23:03:20tags: [数学，算法]
+categories: 技术 文字与语言
 文字编码符合最短编码原理
 书面文短，压缩了体积
 词是有限的封闭集合，语言是无限的开放集合，有着许多例外  
 
-统计概率模型程序设计语言是上下文无关文法，复杂度为长度的平方。语言是上下文有关文法，复杂度是长度的6次方。主要解决的是一个词语序列">
+统计概率模型程序设计语言是上下文无关文法，复杂度为长度的平方。语言是上下文有关文法，复杂度是长度的6次方。主要解决的是一个词语序列是否构成一">
 <meta property="og:type" content="article">
 <meta property="og:title" content="dou's Blog">
 <meta property="og:url" content="xiaodouhua.github.io/2016/07/27/数学之美（1）/index.html">
 <meta property="og:site_name" content="dou's Blog">
-<meta property="og:description" content="title: 数学之美（1）date: 2016-07-27 22:25:23tags:  [数学，算法]  
-categories: 技术   文字与语言
+<meta property="og:description" content="title: 数学之美（1）date: 2016-07-27 23:03:20tags: [数学，算法]
+categories: 技术 文字与语言
 文字编码符合最短编码原理
 书面文短，压缩了体积
 词是有限的封闭集合，语言是无限的开放集合，有着许多例外  
 
-统计概率模型程序设计语言是上下文无关文法，复杂度为长度的平方。语言是上下文有关文法，复杂度是长度的6次方。主要解决的是一个词语序列">
-<meta property="og:updated_time" content="2016-07-27T15:00:13.554Z">
+统计概率模型程序设计语言是上下文无关文法，复杂度为长度的平方。语言是上下文有关文法，复杂度是长度的6次方。主要解决的是一个词语序列是否构成一">
+<meta property="og:updated_time" content="2016-07-27T15:05:29.715Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="dou's Blog">
-<meta name="twitter:description" content="title: 数学之美（1）date: 2016-07-27 22:25:23tags:  [数学，算法]  
-categories: 技术   文字与语言
+<meta name="twitter:description" content="title: 数学之美（1）date: 2016-07-27 23:03:20tags: [数学，算法]
+categories: 技术 文字与语言
 文字编码符合最短编码原理
 书面文短，压缩了体积
 词是有限的封闭集合，语言是无限的开放集合，有着许多例外  
 
-统计概率模型程序设计语言是上下文无关文法，复杂度为长度的平方。语言是上下文有关文法，复杂度是长度的6次方。主要解决的是一个词语序列">
+统计概率模型程序设计语言是上下文无关文法，复杂度为长度的平方。语言是上下文有关文法，复杂度是长度的6次方。主要解决的是一个词语序列是否构成一">
   
   
     <link rel="icon" href="/favicon.png">
@@ -101,15 +101,14 @@ categories: 技术   文字与语言
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
-<p>title: 数学之美（1）<br>date: 2016-07-27 22:25:23<br>tags:  [数学，算法]  </p>
-<h2 id="categories-技术"><a href="#categories-技术" class="headerlink" title="categories: 技术   "></a>categories: 技术   </h2><h3 id="文字与语言"><a href="#文字与语言" class="headerlink" title="文字与语言"></a>文字与语言</h3><ul>
+<p>title: 数学之美（1）<br>date: 2016-07-27 23:03:20<br>tags: [数学，算法]</p>
+<h2 id="categories-技术"><a href="#categories-技术" class="headerlink" title="categories: 技术 "></a>categories: 技术 </h2><h3 id="文字与语言"><a href="#文字与语言" class="headerlink" title="文字与语言"></a>文字与语言</h3><ul>
 <li>文字编码符合最短编码原理</li>
 <li>书面文短，压缩了体积</li>
 <li>词是有限的封闭集合，语言是无限的开放集合，有着许多例外  </li>
 </ul>
 <h3 id="统计概率模型"><a href="#统计概率模型" class="headerlink" title="统计概率模型"></a>统计概率模型</h3><p>程序设计语言是上下文无关文法，复杂度为长度的平方。语言是上下文有关文法，复杂度是长度的6次方。主要解决的是一个词语序列是否构成一个可理解的合理的句子。<br><a id="more"></a><br>统计概率模型利用的是一个句子出现的概率简化到马尔科夫模型:  </p>
-<p>$$A^2_2=B+C$$<br>$$P(s)=p(w_1,w_2,\cdots,w_n) =p(w_1)<em>p(w_2|w_1)</em>\cdots*p(w<em>n|w</em>{n-1})$$  </p>
-<p>$$ p(w<em>n|w</em>{n-1})=\frac{p(w<em>{n-1},w</em>{n})}{p(w<em>{n-1})}=\frac{num(w</em>{n-1},w<em>{n}{num(w</em>{n-1})} $$<br>即统计$ (w_{n-1},w<em>n) $和$ w</em>{n-1} $出现的次数，相除即可。  </p>
+<p>$$A^2_2=B+C$$<br>$$p(s)=p(w_1,w_2,\cdots,w_n) =p(w_1)<em>p(w_2|w_1)</em>\cdots*p(w<em>n|w</em>{n-1})$$<br>$$p(w<em>n|w</em>{n-1})=\frac{p(w<em>{n-1},w</em>{n})}{p(w<em>{n-1})}=\frac{num(w</em>{n-1},w<em>{n}{num(w</em>{n-1})}$$<br>即统计 $(w_{n-1},w<em>n)$ 和 $w</em>{n-1}$ 出现的次数，相除即可。  </p>
 <ul>
 <li>也可用高阶马尔科夫模型（一般为三元模型）。</li>
 <li>当词语出现的次数过于少时，要注意零概率问题和平滑方法。利用古德-图灵估计公式，将看得到的所有概率和调低一点，剩下的给看不见的小概率。  </li>
@@ -129,7 +128,7 @@ categories: 技术   文字与语言
     </div>
     <footer class="article-footer">
       
-        <a data-url="xiaodouhua.github.io/2016/07/27/数学之美（1）/" data-id="cir50qdxp00020gu768c100l1" class="article-share-link" data-share="baidu" data-title="">Share</a>
+        <a data-url="xiaodouhua.github.io/2016/07/27/数学之美（1）/" data-id="cir50x23j0000xcu7318aomos" class="article-share-link" data-share="baidu" data-title="">Share</a>
       
 
       
