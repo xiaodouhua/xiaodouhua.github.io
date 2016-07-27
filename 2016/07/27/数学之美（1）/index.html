@@ -22,7 +22,7 @@
 词是有限的封闭集合，语言是无限的开放集合，有着许多例外  
 
 统计概率模型程序设计语言是上下文无关文法，复杂度为长度的平方。语言是上下文有关文法，复杂度是长度的6次方。主要解决的是一个词语序列是否构成一个可理解的合理的句子。">
-<meta property="og:updated_time" content="2016-07-27T15:27:28.602Z">
+<meta property="og:updated_time" content="2016-07-27T15:29:42.656Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数学之美（1）">
 <meta name="twitter:description" content="文字与语言
@@ -113,7 +113,7 @@
 <li>词是有限的封闭集合，语言是无限的开放集合，有着许多例外  </li>
 </ul>
 <h3 id="统计概率模型"><a href="#统计概率模型" class="headerlink" title="统计概率模型"></a>统计概率模型</h3><p>程序设计语言是上下文无关文法，复杂度为长度的平方。语言是上下文有关文法，复杂度是长度的6次方。主要解决的是一个词语序列是否构成一个可理解的合理的句子。<br><a id="more"></a><br>统计概率模型利用的是一个句子出现的概率简化到马尔科夫模型:  </p>
-<p>$$A^2_2=B+C$$<br>$$p(s)=p(w_1,w_2,\cdots,w_n) =p(w_1)<em>p(w_2|w_1)</em>\cdots*p(w<em>n|w</em>{n-1})$$  </p>
+<p>$$A^2_2=B+C$$<br>$$P(S)=p(w_1,w_3,\cdots,w_n)$$<br>$$p(s)=p(w_1,w_2,\cdots,w_n) =p(w_1)<em>p(w_2|w_1)</em>\cdots*p(w<em>n|w</em>{n-1})$$  </p>
 <p>以及</p>
 <p>$$p(w<em>n|w</em>{n-1})=\frac{p(w<em>{n-1},w</em>{n})}{p(w<em>{n-1})}=\frac{num(w</em>{n-1},w<em>{n}{num(w</em>{n-1})}$$<br>即统计$ (w_{n-1},w<em>n) $和$ w</em>{n-1} $出现的次数，相除即可。  </p>
 <ul>
