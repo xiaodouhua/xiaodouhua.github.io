@@ -4540,15 +4540,15 @@ b.parentNode.removeChild(b)}catch(a){return}ak=true;var d=Z.length;for(var c=0;c
     <link href="xiaodouhua.github.io/2016/10/11/git%E4%B8%8Egithub%E5%AD%A6%E4%B9%A0/"/>
     <id>xiaodouhua.github.io/2016/10/11/git与github学习/</id>
     <published>2016-10-10T17:30:23.000Z</published>
-    <updated>2016-10-10T18:31:18.114Z</updated>
+    <updated>2016-10-10T18:46:09.069Z</updated>
     
     <content type="html"><![CDATA[<p>别说话，就是干。 </p>
 <ul>
 <li>[x] 安装</li>
-<li>[x] 命令的学习</li>
+<li>[ ] 命令的学习</li>
 <li>[ ] 与github关联push</li>
 <li>[ ] git原理的学习<a id="more"></a>
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="http://music.163.com/outchain/player?type=2&id=28798785&auto=1&height=66"></iframe>  
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="http://music.163.com/outchain/player?type=2&id=30394763&auto=0&height=66"></iframe>  
 
 
 
@@ -4572,7 +4572,7 @@ b.parentNode.removeChild(b)}catch(a){return}ak=true;var d=Z.length;for(var c=0;c
       &lt;p&gt;别说话，就是干。 &lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;[x] 安装&lt;/li&gt;
-&lt;li&gt;[x] 命令的学习&lt;/li&gt;
+&lt;li&gt;[ ] 命令的学习&lt;/li&gt;
 &lt;li&gt;[ ] 与github关联push&lt;/li&gt;
 &lt;li&gt;[ ] git原理的学习
     
