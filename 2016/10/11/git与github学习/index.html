@@ -101,7 +101,7 @@
 [ ] 与github关联push
 [ ] git原理的学习">
 <meta property="og:image" content="xiaodouhua.github.io/images/cmd_git.png">
-<meta property="og:updated_time" content="2016-10-10T18:46:09.069Z">
+<meta property="og:updated_time" content="2016-10-14T06:09:41.640Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git与github学习(待更新)">
 <meta name="twitter:description" content="别说话，就是干。 
@@ -394,23 +394,37 @@
 <li>[ ] 命令的学习</li>
 <li>[ ] 与github关联push</li>
 <li>[ ] git原理的学习<a id="more"></a>
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="http://music.163.com/outchain/player?type=2&id=30394763&auto=0&height=66"></iframe>  
-
-
-
 </li>
 </ul>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="http://music.163.com/outchain/player?type=2&id=30394763&auto=0&height=66"></iframe>  
+
 <h3 id="安装："><a href="#安装：" class="headerlink" title="安装："></a>安装：</h3><ul>
 <li>Mac：<a href="https://sourceforge.net/projects/git-osx-installer/" target="_blank" rel="external">https://sourceforge.net/projects/git-osx-installer/</a></li>
 <li>Windows：<a href="https://git-for-windows.github.io/" target="_blank" rel="external">https://git-for-windows.github.io/</a></li>
 <li>Linux：<code>apt-get install git</code><br>在任一地方右键<code>git bash</code>即可开始操作。<br>环境变量好像默认是配置成功的，因此在cmd命令行也是可以敲git命令的。<br><img src="/images/cmd_git.png" alt=""></li>
 </ul>
 <h3 id="命令："><a href="#命令：" class="headerlink" title="命令："></a>命令：</h3><ul>
-<li>git </li>
+<li>git config –global user.name “name”</li>
+<li>git config –global user.email “XX@example.com”  </li>
+<li>git config -l  # 显示配置详情</li>
 </ul>
-<blockquote>
-<p>Written with <a href="https://stackedit.io/" target="_blank" rel="external">StackEdit</a>.</p>
+<p>这里设置的姓名和邮件会显示在提交给仓库里的 log 等信息里，与认证等无关。</p>
+<ul>
+<li>创建版本库 <ul>
+<li>mk learngit # 创建文件夹 </li>
+<li>cd learngit # 进入文件夹</li>
+<li><strong>git init</strong>  # 初始化，将本文件夹作为一个本地仓库 </li>
+<li>git add readme.txt # 将文件放入index（暂存）区</li>
+<li>git commit -m “wrote a readme file” # 提交<br>上面这些命令就可以创建文件，提交文件了。<br>其它一些命令：  </li>
+</ul>
+</li>
+<li>git status # 查看工作区、暂存区状态  </li>
+<li>git log  # 查看历史提交信息  </li>
+<li>git diff a.txt #比较  <blockquote>
+<p>Written with <a href="https://stackedit.io/" target="_blank" rel="external">StackEdit</a>.&amp;sublime  </p>
 </blockquote>
+</li>
+</ul>
 
       
     </div>
@@ -450,6 +464,10 @@
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/14/xiyouji/" rel="prev" title="西游记-女儿情">
+                西游记-女儿情 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -540,7 +558,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-count">8</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
