@@ -103,7 +103,7 @@
 <meta property="og:image" content="xiaodouhua.github.io/images/cmd_git.png">
 <meta property="og:image" content="xiaodouhua.github.io/images/git0.png">
 <meta property="og:image" content="xiaodouhua.github.io/images/git1.jpg">
-<meta property="og:updated_time" content="2016-10-21T08:31:07.021Z">
+<meta property="og:updated_time" content="2016-10-21T08:44:40.414Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git与github学习">
 <meta name="twitter:description" content="别说话，就是干。 
@@ -419,19 +419,18 @@
 <li>git add a.txt # 将文件放入index（暂存）区</li>
 <li>git commit -m “wrote a readme file” # 提交  </li>
 <li>git commit -a -m ‘added new benchmarks’  # 合并了add和commit两条命令  </li>
-<li>git commit –amend # 附加提交，与上一次合成一次提交<br>上面这些命令就可以创建文件，提交文件了。注意运行了<code>git add</code><br>之后又作了修订的文件，需要重新运行 git add 把最新版本重新暂存起来。  </li>
+<li>git commit –amend # 附加提交，与上一次合成一次提交<br>上面这些命令就可以创建文件，提交文件了。注意运行了<code>git add</code>之后又作了修订的文件，需要重新运行 git add 把最新版本重新暂存起来。  </li>
 </ul>
 </li>
-<li>远程仓库的使用：  ：<ul>
+<li>远程仓库的使用：<ul>
 <li>git remote add origin git@github.com:yourname/your resposity.git #<code>git remote add [shortname] [url]</code>与一个github库关联，生成一个短名字，以便引用。</li>
 <li>git push -u oragin master #把本地库的内容推送到远程，用git push命令，实际上是把当前分支master推送到远程。 由于远程库是空的，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。 </li>
 <li>git fetch [shortname] # 从远程仓库抓取数据  </li>
 <li>git pull –rebase origin master #如果远程库中有些文件本地库没有，就会有冲突，所以在push之前先执行这句命令合并一下代码即可   </li>
-<li>git remote rm origin #解除origin的绑定。  。  </li>
+<li>git remote rm origin #解除origin的绑定。 </li>
 </ul>
 </li>
-<li><p>branch管理：  </p>
-<ul>
+<li>branch管理：  <ul>
 <li>git branch #查看当前分支  </li>
 <li>git branch a # 新建分支a  </li>
 <li>git checkout a #切换到a分支  </li>
@@ -439,8 +438,7 @@
 <li>git branch -d a #删除a分支  </li>
 </ul>
 </li>
-<li><p>其它一些命令：  </p>
-<ul>
+<li>其它一些命令：  <ul>
 <li>git status # 查看工作区、暂存区状态  </li>
 <li>git log  # 查看历史提交信息 可以加上<code>--pretty=oneline</code>参数，然结果显示在一行。 </li>
 <li>git diff a.txt #比较index和work directory中a.txt差异 </li>
