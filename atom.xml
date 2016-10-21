@@ -46,18 +46,18 @@
   </entry>
   
   <entry>
-    <title>git与github学习(待更新)</title>
+    <title>git与github学习</title>
     <link href="xiaodouhua.github.io/2016/10/11/git%E4%B8%8Egithub%E5%AD%A6%E4%B9%A0/"/>
     <id>xiaodouhua.github.io/2016/10/11/git与github学习/</id>
     <published>2016-10-10T17:30:23.000Z</published>
-    <updated>2016-10-14T06:57:06.733Z</updated>
+    <updated>2016-10-21T08:31:07.021Z</updated>
     
     <content type="html"><![CDATA[<p>别说话，就是干。 </p>
 <ul>
 <li>[x] 安装</li>
-<li>[ ] 命令的学习</li>
-<li>[ ] 与github关联push</li>
-<li>[ ] git原理的学习<a id="more"></a>
+<li>[x] 命令的学习</li>
+<li>[x] 与github关联push</li>
+<li>[x] git原理的学习<a id="more"></a>
 </li>
 </ul>
 <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="http://music.163.com/outchain/player?type=2&id=30394763&auto=0&height=66"></iframe>  
@@ -72,23 +72,58 @@
 <li>git config –global user.email “XX@example.com”  </li>
 <li>git config -l  # 显示配置详情</li>
 </ul>
-<p>这里设置的姓名和邮件会显示在提交给仓库里的 log 等信息里，与认证等无关。</p>
+<p>这里设置的姓名和邮件会显示在提交给仓库里的 log 等信息里，与认证等无关。<code>--global</code>代表着表示你这台机器上所有的Git仓库都会使用这个配置，当然也可以对某个仓库指定不同的用户名和Email地址。</p>
 <ul>
-<li>创建版本库 <ul>
+<li>创建仓库和添加文件到仓库<ul>
 <li>mk learngit # 创建文件夹 </li>
 <li>cd learngit # 进入文件夹</li>
 <li><strong>git init</strong>  # 初始化，将本文件夹作为一个本地仓库 </li>
-<li>git add readme.txt # 将文件放入index（暂存）区</li>
-<li>git commit -m “wrote a readme file” # 提交<br>上面这些命令就可以创建文件，提交文件了。<br>其它一些命令：  </li>
+<li>git add a.txt # 将文件放入index（暂存）区</li>
+<li>git commit -m “wrote a readme file” # 提交  </li>
+<li>git commit -a -m ‘added new benchmarks’  # 合并了add和commit两条命令  </li>
+<li>git commit –amend # 附加提交，与上一次合成一次提交<br>上面这些命令就可以创建文件，提交文件了。注意运行了<code>git add</code><br>之后又作了修订的文件，需要重新运行 git add 把最新版本重新暂存起来。  </li>
 </ul>
 </li>
+<li>远程仓库的使用：  ：<ul>
+<li>git remote add origin git@github.com:yourname/your resposity.git #<code>git remote add [shortname] [url]</code>与一个github库关联，生成一个短名字，以便引用。</li>
+<li>git push -u oragin master #把本地库的内容推送到远程，用git push命令，实际上是把当前分支master推送到远程。 由于远程库是空的，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。 </li>
+<li>git fetch [shortname] # 从远程仓库抓取数据  </li>
+<li>git pull –rebase origin master #如果远程库中有些文件本地库没有，就会有冲突，所以在push之前先执行这句命令合并一下代码即可   </li>
+<li>git remote rm origin #解除origin的绑定。  。  </li>
+</ul>
+</li>
+<li><p>branch管理：  </p>
+<ul>
+<li>git branch #查看当前分支  </li>
+<li>git branch a # 新建分支a  </li>
+<li>git checkout a #切换到a分支  </li>
+<li>git merge a #当前分支与a分支合并  </li>
+<li>git branch -d a #删除a分支  </li>
+</ul>
+</li>
+<li><p>其它一些命令：  </p>
+<ul>
 <li>git status # 查看工作区、暂存区状态  </li>
-<li>git log  # 查看历史提交信息  </li>
-<li>git diff a.txt #比较  <blockquote>
+<li>git log  # 查看历史提交信息 可以加上<code>--pretty=oneline</code>参数，然结果显示在一行。 </li>
+<li>git diff a.txt #比较index和work directory中a.txt差异 </li>
+<li>git reflog # 显示命令历史  </li>
+<li>git reset –hard HEAD^ #回退到上一个版本  </li>
+<li>git reset –hard HEAD~100 # 回退到上100个版本  </li>
+<li>git reset –hard 4589 # 4589是版本号   </li>
+<li>git checkout – a.txt #工作区做了修改没有add和commit可以丢弃修改  </li>
+<li>git reset HEAD a.txt # 在add了之后，可以把暂存区的修改撤销掉（unstage），即，使上一条add命令失效，可以接着 git checkout – a.txt丢弃工作区的修改  </li>
+<li>rm a.txt # 想删除工作区的文件，可以鼠标右键也可以用这条命令删除  </li>
+<li>git rm a.txt # 删除暂存区和跟踪清单的文件  </li>
+<li>git stash # 保存现场  </li>
+<li>git stash pop # 恢复现场，或者<code>git stash apply</code> + <code>git stash drop</code>.<br><code>git diff [&lt;path&gt;...]</code>：这个命令最常用，在每次add进入index前会运行这个命令，查看即将add进入index时所做的内容修改，即<strong>working directory和index的差异</strong>。<br><code>git diff --cached [&lt;path&gt;...]</code>：这个命令初学者不太常用，却非常有用，它表示查看已经add进入index但是尚未commit的内容同最后一次commit时的内容的差异。即<strong>index和git directory的差异.</strong><br><code>git diff --cached [&lt;commit&gt;] [&lt;path&gt;...]</code>：这个命令初学者用的更少，也非常有用，它表示查看已经add进入index但是尚未commit的内容同指定的<code>&lt;commit&gt;</code>之间的差异，和上面一条很相似，差别仅仅<code>&lt;commit&gt;</code>，即<strong>index和git directory中指定版本的差异。</strong><br><code>git diff &lt;commit&gt; [&lt;path&gt;...]</code>：这个命令用来查看<strong>工作目录和指定<code>&lt;commit&gt;</code>的commit之间的差别</strong>，如果要和Git directory中最新版比较差别，则<code>&lt;commit&gt;</code>=HEAD。如果要和某一个branch比较差别，<code>&lt;commit&gt;</code>=分支名字。<br><code>git diff &lt;commit&gt; &lt;commit&gt; [&lt;path&gt;...]</code>：这个命令用来比较git directory中任意两个<code>&lt;commit&gt;</code>之间的差别，如果想比较任意一个<code>&lt;commit&gt;</code>和最新版的差别，把其中一个<code>&lt;commit&gt;</code>换成HEAD即可。<br>同时可以通过<code>[&lt;path&gt;...]</code>参数将比较限定于特点的目录或文件<br>一般我们总会有些文件无需纳入 Git 的管理，也不希望它们总出现在未跟踪文件列表。通常都是些自动生成的文件，比如日志文件，或者编译过程中创建的临时文件等。我们可以创建一个名为 <code>.gitignore</code> 的文件，列出要忽略的文件模式。比如<code>.[oa]</code>是为.o或.a的文件忽略不管。  </li>
+</ul>
+</li>
+</ul>
+<h3 id="git-原理"><a href="#git-原理" class="headerlink" title="git 原理"></a>git 原理</h3><p><img src="/images/git0.png" alt="" title="每次保存文件快照"> </p>
+<h2 id=""><a href="#" class="headerlink" title="  "></a><img src="/images/git1.jpg" alt="" title="工作空间，暂存区，版本库之间的关系">  </h2><p>###refrence:<br><a href="http://blog.csdn.net/hudashi/article/details/7664385" target="_blank" rel="external">http://blog.csdn.net/hudashi/article/details/7664385</a><br><a href="http://stormzhang.com/github/2016/05/30/learn-github-from-zero3/" target="_blank" rel="external">http://stormzhang.com/github/2016/05/30/learn-github-from-zero3/</a><br><a href="http://git.oschina.net/progit" target="_blank" rel="external">http://git.oschina.net/progit</a><br><a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="external">http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000</a></p>
+<blockquote>
 <p>Written with <a href="https://stackedit.io/" target="_blank" rel="external">StackEdit</a>.&amp;sublime  </p>
 </blockquote>
-</li>
-</ul>
 ]]></content>
     
     <summary type="html">
@@ -96,9 +131,9 @@
       &lt;p&gt;别说话，就是干。 &lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;[x] 安装&lt;/li&gt;
-&lt;li&gt;[ ] 命令的学习&lt;/li&gt;
-&lt;li&gt;[ ] 与github关联push&lt;/li&gt;
-&lt;li&gt;[ ] git原理的学习
+&lt;li&gt;[x] 命令的学习&lt;/li&gt;
+&lt;li&gt;[x] 与github关联push&lt;/li&gt;
+&lt;li&gt;[x] git原理的学习
     
     </summary>
     
