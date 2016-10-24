@@ -50,7 +50,7 @@
     <link href="xiaodouhua.github.io/2016/10/11/git%E4%B8%8Egithub%E5%AD%A6%E4%B9%A0/"/>
     <id>xiaodouhua.github.io/2016/10/11/git与github学习/</id>
     <published>2016-10-10T17:30:23.000Z</published>
-    <updated>2016-10-21T08:50:44.955Z</updated>
+    <updated>2016-10-24T16:37:28.147Z</updated>
     
     <content type="html"><![CDATA[<p>别说话，就是干。 </p>
 <ul>
@@ -88,6 +88,7 @@
 <li>git remote add origin git@github.com:yourname/your resposity.git #<code>git remote add [shortname] [url]</code>与一个github库关联，生成一个短名字，以便引用。</li>
 <li>git push -u oragin master #把本地库的内容推送到远程，用git push命令，实际上是把当前分支master推送到远程。 由于远程库是空的，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。 </li>
 <li>git fetch [shortname] # 从远程仓库抓取数据  </li>
+<li>git pull  </li>
 <li>git pull –rebase origin master #如果远程库中有些文件本地库没有，就会有冲突，所以在push之前先执行这句命令合并一下代码即可   </li>
 <li>git remote rm origin #解除origin的绑定。 </li>
 </ul>
@@ -98,6 +99,9 @@
 <li>git checkout a #切换到a分支  </li>
 <li>git merge a #当前分支与a分支合并  </li>
 <li>git branch -d a #删除a分支  </li>
+<li>git branch –no-merged #未合并的分支  </li>
+<li>git branch –merged  </li>
+<li>git branch -v  # 查看各个分支最后一个提交对象的信息  </li>
 </ul>
 </li>
 <li>其它一些命令：  <ul>
@@ -117,8 +121,9 @@
 </ul>
 </li>
 </ul>
-<h3 id="git-原理"><a href="#git-原理" class="headerlink" title="git 原理"></a>git 原理</h3><p><img src="/images/git0.png" alt="" title="每次保存文件快照"> </p>
-<h2 id=""><a href="#" class="headerlink" title="  "></a><img src="/images/git1.jpg" alt="" title="工作空间，暂存区，版本库之间的关系">  </h2><h3 id="refrence"><a href="#refrence" class="headerlink" title="refrence:"></a>refrence:</h3><p><a href="http://blog.csdn.net/hudashi/article/details/7664385" target="_blank" rel="external">http://blog.csdn.net/hudashi/article/details/7664385</a><br><a href="http://stormzhang.com/github/2016/05/30/learn-github-from-zero3/" target="_blank" rel="external">http://stormzhang.com/github/2016/05/30/learn-github-from-zero3/</a><br><a href="http://git.oschina.net/progit" target="_blank" rel="external">http://git.oschina.net/progit</a><br><a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="external">http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000</a></p>
+<h3 id="git-原理"><a href="#git-原理" class="headerlink" title="git 原理"></a>git 原理</h3><p><img src="/images/git0.png" alt="" title="每次保存文件快照"><br><img src="/images/git1.jpg" alt="" title="工作空间，暂存区，版本库之间的关系">    </p>
+<hr>
+<h3 id="refrence"><a href="#refrence" class="headerlink" title="refrence:"></a>refrence:</h3><p><a href="http://blog.csdn.net/hudashi/article/details/7664385" target="_blank" rel="external">http://blog.csdn.net/hudashi/article/details/7664385</a><br><a href="http://stormzhang.com/github/2016/05/30/learn-github-from-zero3/" target="_blank" rel="external">http://stormzhang.com/github/2016/05/30/learn-github-from-zero3/</a><br><a href="http://git.oschina.net/progit" target="_blank" rel="external">http://git.oschina.net/progit</a><br><a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="external">http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000</a><br>分支： <a href="http://www.open-open.com/lib/view/open1328069889514.html#articleHeader3" target="_blank" rel="external">http://www.open-open.com/lib/view/open1328069889514.html#articleHeader3</a></p>
 <blockquote>
 <p>Written with <a href="https://stackedit.io/" target="_blank" rel="external">StackEdit</a>.&amp;sublime  </p>
 </blockquote>
