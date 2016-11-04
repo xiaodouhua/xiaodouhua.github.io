@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="xiaodouhua.github.io/"/>
-  <updated>2016-10-27T13:24:29.227Z</updated>
+  <updated>2016-11-04T13:50:58.781Z</updated>
   <id>xiaodouhua.github.io/</id>
   
   <author>
@@ -16,15 +16,13 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
-    <link href="xiaodouhua.github.io/2016/10/27/%E9%82%A3%E4%BA%9B%E8%AF%97/"/>
-    <id>xiaodouhua.github.io/2016/10/27/那些诗/</id>
-    <published>2016-10-27T13:19:48.285Z</published>
-    <updated>2016-10-27T13:24:29.227Z</updated>
+    <title>Markdown语法</title>
+    <link href="xiaodouhua.github.io/2016/11/01/%E9%82%A3%E4%BA%9B%E8%AF%97/"/>
+    <id>xiaodouhua.github.io/2016/11/01/那些诗/</id>
+    <published>2016-11-01T01:44:20.000Z</published>
+    <updated>2016-11-04T13:50:58.781Z</updated>
     
-    <content type="html"><![CDATA[<hr>
-<p>title: 数学之美<br>date: 2016-10-27 21:20:18<br>tags: [古诗,随笔]</p>
-<h2 id="categories-读书"><a href="#categories-读书" class="headerlink" title="categories: 读书"></a>categories: 读书</h2><h3 id="生查子·元夕"><a href="#生查子·元夕" class="headerlink" title="生查子·元夕"></a>生查子·元夕</h3><blockquote>
+    <content type="html"><![CDATA[<h3 id="生查子·元夕"><a href="#生查子·元夕" class="headerlink" title="生查子·元夕"></a>生查子·元夕</h3><blockquote>
 <p>去年元夜时，花市灯如昼。<br>月上柳梢头，人约黄昏后。<br>今年元夜时，月与灯依旧。<br>不见去年人，泪湿春衫袖。<br>  –欧阳修  </p>
 </blockquote>
 <a id="more"></a>  
@@ -32,14 +30,16 @@
     
     <summary type="html">
     
-      &lt;hr&gt;
-&lt;p&gt;title: 数学之美&lt;br&gt;date: 2016-10-27 21:20:18&lt;br&gt;tags: [古诗,随笔]&lt;/p&gt;
-&lt;h2 id=&quot;categories-读书&quot;&gt;&lt;a href=&quot;#categories-读书&quot; class=&quot;headerlink&quot; title=&quot;categories: 读书&quot;&gt;&lt;/a&gt;categories: 读书&lt;/h2&gt;&lt;h3 id=&quot;生查子·元夕&quot;&gt;&lt;a href=&quot;#生查子·元夕&quot; class=&quot;headerlink&quot; title=&quot;生查子·元夕&quot;&gt;&lt;/a&gt;生查子·元夕&lt;/h3&gt;&lt;blockquote&gt;
+      &lt;h3 id=&quot;生查子·元夕&quot;&gt;&lt;a href=&quot;#生查子·元夕&quot; class=&quot;headerlink&quot; title=&quot;生查子·元夕&quot;&gt;&lt;/a&gt;生查子·元夕&lt;/h3&gt;&lt;blockquote&gt;
 &lt;p&gt;去年元夜时，花市灯如昼。&lt;br&gt;月上柳梢头，人约黄昏后。&lt;br&gt;今年元夜时，月与灯依旧。&lt;br&gt;不见去年人，泪湿春衫袖。&lt;br&gt;  –欧阳修  &lt;/p&gt;
 &lt;/blockquote&gt;
     
     </summary>
     
+      <category term="生活" scheme="xiaodouhua.github.io/categories/%E7%94%9F%E6%B4%BB/"/>
+    
+    
+      <category term="随笔，古诗" scheme="xiaodouhua.github.io/tags/%E9%9A%8F%E7%AC%94%EF%BC%8C%E5%8F%A4%E8%AF%97/"/>
     
   </entry>
   
