@@ -108,11 +108,15 @@ Contact|联系方式E-mail:&amp;#100;&amp;#111;&amp;#117;&amp;#x6c;&amp;#x6f;&am
     fancybox: true,
     motion: true,
     duoshuo: {
-      userId: 6285618040750999000,
+      userId: '6285618040750999000',
       author: 'Dou'
     }
   };
 </script>
+
+
+
+
 
   <title>
   
@@ -123,7 +127,7 @@ Contact|联系方式E-mail:&amp;#100;&amp;#111;&amp;#117;&amp;#x6c;&amp;#x6f;&am
 </title>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -163,7 +167,7 @@ Contact|联系方式E-mail:&amp;#100;&amp;#111;&amp;#117;&amp;#x6c;&amp;#x6f;&am
   <div class="container one-collumn sidebar-position-left  ">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
       <div class="header-inner"><div class="site-meta ">
   
 
@@ -245,7 +249,7 @@ Contact|联系方式E-mail:&amp;#100;&amp;#111;&amp;#117;&amp;#x6c;&amp;#x6f;&am
       
         <li class="menu-item menu-item-search">
           
-            <a href="#" class="st-search-show-outputs">
+            <a href="javascript:;" class="st-search-show-outputs">
           
             
               <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
@@ -324,7 +328,7 @@ Contact|联系方式E-mail:&amp;#100;&amp;#111;&amp;#117;&amp;#x6c;&amp;#x6f;&am
       
 
       <section class="site-overview sidebar-panel  sidebar-panel-active ">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
                alt="豆龙超" />
@@ -425,7 +429,7 @@ Contact|联系方式E-mail:&amp;#100;&amp;#111;&amp;#117;&amp;#x6c;&amp;#x6f;&am
 </div>
 
 <div class="powered-by">
-  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
 </div>
 
 <div class="theme-info">
@@ -550,18 +554,18 @@ Contact|联系方式E-mail:&amp;#100;&amp;#111;&amp;#117;&amp;#x6c;&amp;#x6f;&am
 
   
     
-      
-      <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
-      <script src="/js/src/hook-duoshuo.js"></script>
-    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
   
 
 
 
 
 
+
   
   
+
   
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -587,8 +591,23 @@ Contact|联系方式E-mail:&amp;#100;&amp;#111;&amp;#117;&amp;#x6c;&amp;#x6f;&am
   
 
   
-<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
 </script>
+
+
+  
 
 
 </body>
