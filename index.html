@@ -306,6 +306,146 @@
             
               
                 
+                <a class="post-title-link" href="/2016/11/21/python学习笔记/" itemprop="url">
+                  python学习笔记
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-21T15:57:23+08:00" content="2016-11-21">
+              2016-11-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/21/python学习笔记/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/21/python学习笔记/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="综述"><a href="#综述" class="headerlink" title="综述"></a>综述</h2><p>应用场景:<br>首选是<strong>网络</strong>应用，包括网站、后台服务等等；其次是许多日常需要的<strong>小工具</strong>，包括系统管理员需要的脚本任务等等；另外就是把其他语言开发的<strong>程序再包装</strong>起来，方便使用。  </p>
+<p>优缺点：<br>优点：“优雅”、“明确”、“简单”、“内置电池（ batteries included）”（各种库），所以开发速度快。<br>缺点：运行慢，源码公开。  </p>
+<h2 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h2><p><code>!/usr/bin/env python3 #为了在linux上运行</code><br><code># -*- coding: utf-8 -*- #编码声明</code>  </p>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><ul>
+<li>整数 <code>1</code>  <code>0xff00</code> etc.</li>
+<li>浮点数  <code>3.14</code> <code>3e-5</code> </li>
+<li>字符串 <code>&quot;abc&quot;</code> <code>&#39;abc&#39;</code>  <code>r&#39;a\b\vc\\cc\\&#39; # 非转义</code>  、</li>
+<li>布尔值 <code>True</code> <code>False</code>,可进行<code>and or not</code>运算  </li>
+<li>空值 <code>None</code>  </li>
+<li>常量 <code>PI=3.1415926 #默认大写，其实也是变量</code>  </li>
+<li>在计算机内存中，统一使用Unicode编码，当需要保存到硬盘或者需要传输的时候，就转为UTF-8编码  </li>
+<li><p>Python提供了<code>ord()</code>函数获取字符的整数表示，<code>chr()</code>函数把编码转换为对应的字符：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;ord(<span class="string">'A'</span>)  </span><br><span class="line"><span class="number">65</span>  </span><br><span class="line">&gt;&gt;&gt;chr(<span class="number">65</span>)</span><br><span class="line"><span class="string">'A'</span></span><br><span class="line">&gt;&gt;&gt;chr(<span class="number">25991</span>)</span><br><span class="line"><span class="string">'文'</span> </span><br><span class="line">&gt;&gt;&gt;<span class="string">'\u4e2d\u6587'</span> <span class="comment"># 16进制的str  </span></span><br><span class="line"><span class="string">'中文'</span>  </span><br><span class="line"></span><br><span class="line">```   </span><br><span class="line"></span><br><span class="line">- 以Unicode表示的str通过encode()方法可以编码为指定的bytes.如果我们从网络或磁盘上读取了字节流，那么读到的数据就是bytes。要把bytes变为str，就需要用decode()方法 </span><br><span class="line">```python</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">'ABC'</span>.encode(<span class="string">'ascii'</span>)</span><br><span class="line"><span class="string">b'ABC'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">'中文'</span>.encode(<span class="string">'utf-8'</span>)</span><br><span class="line"><span class="string">b'\xe4\xb8\xad\xe6\x96\x87'</span>  </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">b'ABC'</span>.decode(<span class="string">'ascii'</span>)</span><br><span class="line"><span class="string">'ABC'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">b'\xe4\xb8\xad\xe6\x96\x87'</span>.decode(<span class="string">'utf-8'</span>)</span><br><span class="line"><span class="string">'中文'</span></span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">- 格式化输出</span><br><span class="line">```python</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">'%2d-%02d'</span> % (<span class="number">3</span>, <span class="number">1</span>)</span><br><span class="line"><span class="string">' 3-01'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">'%.2f'</span> % <span class="number">3.1415926</span></span><br><span class="line"><span class="string">'3.14'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>列表 <code>classmates = [&#39;Michael&#39;, &#39;Bob&#39;, &#39;Tracy&#39;]</code>.可以下标访问。方法主要有<code>.append(&#39;Lucy&#39;)</code>;<code>.pop()</code>;<code>.pop(i)</code>；<code>classmates.insert(1, &#39;Jack&#39;)</code>里面数据类型可以不同  </p>
+</li>
+<li>tuple 不可更改的列表<code>classmates = (&#39;Michael&#39;, &#39;Bob&#39;, &#39;Tracy&#39;)</code>  </li>
+<li>dic <code>d = {&#39;Michael&#39;: 95, &#39;Bob&#39;: 75, &#39;Tracy&#39;: 85}</code>;方法： <code>d.get(&#39;Thomas&#39;, -1)</code> ;<code>d.pop(&#39;Bob&#39;)</code>  </li>
+<li>set <code>s = set([1, 1, 2, 2, 3, 3])</code>;<code>s.add(4)</code>;<code>s.remove(4)</code>;两个set可以做数学意义上的交集、并集等操作  </li>
+</ul>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><p>函数主要注意默认参数，可变参数，关键字参数，命名关键字参数。<br>*args是可变参数，args接收的是一个tuple；**kw是关键字参数，kw接收的是一个dict。以及调用函数时如何传入可变参数和关键字参数的语法：可变参数既可以直接传入：<code>func(1, 2, 3)</code>，又可以先组装list或tuple，再通过<code>*args</code>传入：<code>func(*(1, 2, 3))</code>；关键字参数既可以直接传入：<code>func(a=1, b=2)</code>，又可以先组装dict，再通过<code>**kw</code>传入：<code>func(**{&#39;a&#39;: 1, &#39;b&#39;: 2})</code>。使用<code>*args</code>和<code>**kw</code>是Python的习惯写法，当然也可以用其他参数名，但最好使用习惯用法。命名的关键字参数是为了限制调用者可以传入的参数名，同时可以提供默认值。定义命名的关键字参数在没有可变参数的情况下不要忘了写分隔符<code>*</code>，否则定义的将是位置参数。  </p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/11/01/各种摘抄/" itemprop="url">
                   各种摘抄
                 </a>
@@ -1422,7 +1562,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1439,7 +1579,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
