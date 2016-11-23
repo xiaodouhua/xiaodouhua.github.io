@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="xiaodouhua.github.io/"/>
-  <updated>2016-11-23T02:08:49.301Z</updated>
+  <updated>2016-11-23T02:10:29.484Z</updated>
   <id>xiaodouhua.github.io/</id>
   
   <author>
@@ -20,10 +20,10 @@
     <link href="xiaodouhua.github.io/2016/11/21/python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     <id>xiaodouhua.github.io/2016/11/21/python学习笔记/</id>
     <published>2016-11-21T07:57:23.000Z</published>
-    <updated>2016-11-23T02:08:49.301Z</updated>
+    <updated>2016-11-23T02:10:29.484Z</updated>
     
     <content type="html"><![CDATA[<h2 id="综述"><a href="#综述" class="headerlink" title="综述"></a>综述</h2><p>应用场景:<br>首选是<strong>网络</strong>应用，包括网站、后台服务等等；其次是许多日常需要的<strong>小工具</strong>，包括系统管理员需要的脚本任务等等；另外就是把其他语言开发的<strong>程序再包装</strong>起来，方便使用。  </p>
-<p>优缺点：<br>优点：“优雅”、“明确”、“简单”、“内置电池（ batteries included）”（各种库），所以开发速度快。<br>缺点：运行慢，源码公开。  </p>
+<p>优缺点：<br>优点：“优雅”、“明确”、“简单”、“内置电池（ batteries included）”（各种库），所以开发速度快。<br>缺点：运行慢，源码公开。<br><a id="more"></a>  </p>
 <h2 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h2><p><code>!/usr/bin/env python3 #为了在linux上运行</code><br><code># -*- coding: utf-8 -*- #编码声明</code>  </p>
 <h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><ul>
 <li>整数 <code>1</code>  <code>0xff00</code> etc.</li>
@@ -53,7 +53,8 @@
     
     <summary type="html">
     
-      &lt;h2 id=&quot;综述&quot;&gt;&lt;a href=&quot;#综述&quot; class=&quot;headerlink&quot; title=&quot;综述&quot;&gt;&lt;/a&gt;综述&lt;/h2&gt;&lt;p&gt;应用场景:&lt;br&gt;首选是&lt;strong&gt;网络&lt;/strong&gt;应用，包括网站、后台服务等等；其次是许多日常需要的&lt;strong&gt;小工具&lt;/s
+      &lt;h2 id=&quot;综述&quot;&gt;&lt;a href=&quot;#综述&quot; class=&quot;headerlink&quot; title=&quot;综述&quot;&gt;&lt;/a&gt;综述&lt;/h2&gt;&lt;p&gt;应用场景:&lt;br&gt;首选是&lt;strong&gt;网络&lt;/strong&gt;应用，包括网站、后台服务等等；其次是许多日常需要的&lt;strong&gt;小工具&lt;/strong&gt;，包括系统管理员需要的脚本任务等等；另外就是把其他语言开发的&lt;strong&gt;程序再包装&lt;/strong&gt;起来，方便使用。  &lt;/p&gt;
+&lt;p&gt;优缺点：&lt;br&gt;优点：“优雅”、“明确”、“简单”、“内置电池（ batteries included）”（各种库），所以开发速度快。&lt;br&gt;缺点：运行慢，源码公开。&lt;br&gt;
     
     </summary>
     
