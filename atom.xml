@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="xiaodouhua.github.io/"/>
-  <updated>2016-11-23T02:10:29.484Z</updated>
+  <updated>2016-11-23T03:25:39.069Z</updated>
   <id>xiaodouhua.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="xiaodouhua.github.io/2016/11/21/python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     <id>xiaodouhua.github.io/2016/11/21/python学习笔记/</id>
     <published>2016-11-21T07:57:23.000Z</published>
-    <updated>2016-11-23T02:10:29.484Z</updated>
+    <updated>2016-11-23T03:25:39.069Z</updated>
     
     <content type="html"><![CDATA[<h2 id="综述"><a href="#综述" class="headerlink" title="综述"></a>综述</h2><p>应用场景:<br>首选是<strong>网络</strong>应用，包括网站、后台服务等等；其次是许多日常需要的<strong>小工具</strong>，包括系统管理员需要的脚本任务等等；另外就是把其他语言开发的<strong>程序再包装</strong>起来，方便使用。  </p>
 <p>优缺点：<br>优点：“优雅”、“明确”、“简单”、“内置电池（ batteries included）”（各种库），所以开发速度快。<br>缺点：运行慢，源码公开。<br><a id="more"></a>  </p>
@@ -32,7 +32,7 @@
 <li>布尔值 <code>True</code> <code>False</code>,可进行<code>and or not</code>运算  </li>
 <li>空值 <code>None</code>  </li>
 <li>常量 <code>PI=3.1415926 #默认大写，其实也是变量</code>  </li>
-<li>在计算机内存中，统一使用Unicode编码，当需要保存到硬盘或者需要传输的时候，就转为UTF-8编码  </li>
+<li>在计算机内存中，统一使用Unicode编码，当需要保存到硬盘或者需要传输的时候，就转为UTF-8编码.在最新的Python 3版本中，字符串是以Unicode编码的    </li>
 <li><p>Python提供了<code>ord()</code>函数获取字符的整数表示，<code>chr()</code>函数把编码转换为对应的字符： </p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;ord(<span class="string">'A'</span>)  </span><br><span class="line"><span class="number">65</span>  </span><br><span class="line">&gt;&gt;&gt;chr(<span class="number">65</span>)</span><br><span class="line"><span class="string">'A'</span></span><br><span class="line">&gt;&gt;&gt;chr(<span class="number">25991</span>)</span><br><span class="line"><span class="string">'文'</span> </span><br><span class="line">&gt;&gt;&gt;<span class="string">'\u4e2d\u6587'</span> <span class="comment"># 16进制的str  </span></span><br><span class="line"><span class="string">'中文'</span></span><br></pre></td></tr></table></figure>
 </li>
@@ -64,64 +64,6 @@
       <category term="python" scheme="xiaodouhua.github.io/tags/python/"/>
     
       <category term="编程" scheme="xiaodouhua.github.io/tags/%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>各种摘抄</title>
-    <link href="xiaodouhua.github.io/2016/11/01/%E5%90%84%E7%A7%8D%E6%91%98%E6%8A%84/"/>
-    <id>xiaodouhua.github.io/2016/11/01/各种摘抄/</id>
-    <published>2016-11-01T01:44:20.000Z</published>
-    <updated>2016-11-04T13:54:49.628Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="生查子·元夕"><a href="#生查子·元夕" class="headerlink" title="生查子·元夕"></a>生查子·元夕</h3><blockquote>
-<p>去年元夜时，花市灯如昼。<br>月上柳梢头，人约黄昏后。<br>今年元夜时，月与灯依旧。<br>不见去年人，泪湿春衫袖。<br>  –欧阳修  </p>
-</blockquote>
-<a id="more"></a>  
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;生查子·元夕&quot;&gt;&lt;a href=&quot;#生查子·元夕&quot; class=&quot;headerlink&quot; title=&quot;生查子·元夕&quot;&gt;&lt;/a&gt;生查子·元夕&lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;去年元夜时，花市灯如昼。&lt;br&gt;月上柳梢头，人约黄昏后。&lt;br&gt;今年元夜时，月与灯依旧。&lt;br&gt;不见去年人，泪湿春衫袖。&lt;br&gt;  –欧阳修  &lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="生活" scheme="xiaodouhua.github.io/categories/%E7%94%9F%E6%B4%BB/"/>
-    
-    
-      <category term="随笔，摘抄" scheme="xiaodouhua.github.io/tags/%E9%9A%8F%E7%AC%94%EF%BC%8C%E6%91%98%E6%8A%84/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>西游记-女儿情</title>
-    <link href="xiaodouhua.github.io/2016/10/14/xiyouji/"/>
-    <id>xiaodouhua.github.io/2016/10/14/xiyouji/</id>
-    <published>2016-10-14T06:03:18.000Z</published>
-    <updated>2016-10-14T06:56:08.284Z</updated>
-    
-    <content type="html"><![CDATA[<p>中午看了豆瓣的一篇文章讲这节后，去B站 <a href="http://www.bilibili.com/video/av3092461/" target="_blank" rel="external">http://www.bilibili.com/video/av3092461/</a> 刷了一发。御帝哥哥真是动情了啊。九九八十一难，这一关最难过，不过也无妨啊,只不过是两种人生罢了。<br><a id="more"></a>  </p>
-<embed height="415" width="544" quality="high" allowfullscreen="true" type="application/x-shockwave-flash" src="http://static.hdslb.com/miniloader.swf" flashvars="aid=3092461&page=1" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash">  
-
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="http://music.163.com/outchain/player?type=2&id=27552551&auto=0&height=66"></iframe>    
-
-<blockquote>
-<p>人间事常难遂人愿，且看明月又有几时还。我柔情万千，他去情更坚。<br>说什么王权富贵,怕什么戒律清规,只愿天长地久,与我意中人儿紧相随。 </p>
-</blockquote>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;中午看了豆瓣的一篇文章讲这节后，去B站 &lt;a href=&quot;http://www.bilibili.com/video/av3092461/&quot;&gt;http://www.bilibili.com/video/av3092461/&lt;/a&gt; 刷了一发。御帝哥哥真是动情了啊。九九八十一难，这一关最难过，不过也无妨啊,只不过是两种人生罢了。&lt;br&gt;
-    
-    </summary>
-    
-      <category term="生活" scheme="xiaodouhua.github.io/categories/%E7%94%9F%E6%B4%BB/"/>
-    
-    
-      <category term="电视剧" scheme="xiaodouhua.github.io/tags/%E7%94%B5%E8%A7%86%E5%89%A7/"/>
     
   </entry>
   
@@ -354,68 +296,6 @@
       <category term="算法" scheme="xiaodouhua.github.io/tags/%E7%AE%97%E6%B3%95/"/>
     
       <category term="数学" scheme="xiaodouhua.github.io/tags/%E6%95%B0%E5%AD%A6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>毕设结束啦</title>
-    <link href="xiaodouhua.github.io/2016/06/14/%E6%AF%95%E8%AE%BE%E7%BB%93%E6%9D%9F%E5%95%A6/"/>
-    <id>xiaodouhua.github.io/2016/06/14/毕设结束啦/</id>
-    <published>2016-06-14T07:14:29.000Z</published>
-    <updated>2016-10-12T19:05:04.266Z</updated>
-    
-    <content type="html"><![CDATA[<p>经过一个多月忧愁的夜晚，论文修修改改好多次，虽然做的东西很渣，但是在毕设答辩很水的情况下，应该没啥问题（这flag立的）。哎，大学荒废了四年，代码能力渣的一笔，幸好还有两年时间去再好好提高提高。要好好珍惜接下来的学习生涯，好好读书，好好修炼，提高代码能力，多读书。上次计划要看的书也没有看，自己的书单列了一大堆。但是执行力太差了。<a id="more"></a><br>马上毕业了，对学校到刚开始的不适应到现在的不舍，刚刚喜欢上不久，就要分离，心里还是蛮伤感的。<br>往者不可谏，来者犹可追。认清昨日的去处，不忘昨日的来处。（via舌尖上的中国）<br>接下来首先要做的是好好地说再见，对马上要成为母校的学校，对马上要成为老同学的同学。还有就是好好放松放松，看看片子，有机会出去玩玩，看完《如何阅读一本书》，看完《数学之美》，看完《万历十五年》。饭咬一口一口吃，路要一步一步走。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;经过一个多月忧愁的夜晚，论文修修改改好多次，虽然做的东西很渣，但是在毕设答辩很水的情况下，应该没啥问题（这flag立的）。哎，大学荒废了四年，代码能力渣的一笔，幸好还有两年时间去再好好提高提高。要好好珍惜接下来的学习生涯，好好读书，好好修炼，提高代码能力，多读书。上次计划要看的书也没有看，自己的书单列了一大堆。但是执行力太差了。
-    
-    </summary>
-    
-      <category term="生活" scheme="xiaodouhua.github.io/categories/%E7%94%9F%E6%B4%BB/"/>
-    
-    
-      <category term="随笔" scheme="xiaodouhua.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>最近计划</title>
-    <link href="xiaodouhua.github.io/2016/05/18/%E6%9C%80%E8%BF%91%E8%AE%A1%E5%88%92/"/>
-    <id>xiaodouhua.github.io/2016/05/18/最近计划/</id>
-    <published>2016-05-18T15:58:20.000Z</published>
-    <updated>2016-10-12T19:08:12.401Z</updated>
-    
-    <content type="html"><![CDATA[<ul>
-<li><strong>完成毕设！！！</strong></li>
-<li>学习正则表达式</li>
-<li>看《万历十五年》</li>
-<li>买的书看完一本</li>
-<li>将学习情况更博，督促一下自己  </li>
-</ul>
-<p>$$c^2=a^2+b^2$$</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;完成毕设！！！&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;学习正则表达式&lt;/li&gt;
-&lt;li&gt;看《万历十五年》&lt;/li&gt;
-&lt;li&gt;买的书看完一本&lt;/li&gt;
-&lt;li&gt;将学习情况更博，督促一下自己  &lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;$$c^2=a^2+b^2$
-    
-    </summary>
-    
-      <category term="生活" scheme="xiaodouhua.github.io/categories/%E7%94%9F%E6%B4%BB/"/>
-    
-    
-      <category term="随笔" scheme="xiaodouhua.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-      <category term="计划" scheme="xiaodouhua.github.io/tags/%E8%AE%A1%E5%88%92/"/>
     
   </entry>
   
