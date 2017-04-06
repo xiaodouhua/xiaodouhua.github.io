@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="xiaodouhua.github.io/"/>
-  <updated>2017-04-06T15:40:04.787Z</updated>
+  <updated>2017-04-06T15:46:05.135Z</updated>
   <id>xiaodouhua.github.io/</id>
   
   <author>
@@ -16,13 +16,13 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>几道面试笔试题》</title>
+    <title>几道面试笔试题</title>
     <link href="xiaodouhua.github.io/2017/04/06/%E5%87%A0%E9%81%93%E9%9D%A2%E8%AF%95%E7%AC%94%E8%AF%95%E9%A2%98/"/>
     <id>xiaodouhua.github.io/2017/04/06/几道面试笔试题/</id>
     <published>2017-04-06T15:19:55.000Z</published>
-    <updated>2017-04-06T15:40:04.787Z</updated>
+    <updated>2017-04-06T15:46:05.135Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="几道面试笔试题"><a href="#几道面试笔试题" class="headerlink" title="几道面试笔试题"></a>几道面试笔试题</h1><h2 id="老鼠喝药问题"><a href="#老鼠喝药问题" class="headerlink" title="老鼠喝药问题"></a>老鼠喝药问题</h2><p>问题：  </p>
+    <content type="html"><![CDATA[<h2 id="老鼠喝药问题"><a href="#老鼠喝药问题" class="headerlink" title="老鼠喝药问题"></a>老鼠喝药问题</h2><p>问题：  </p>
 <p>有 1000 个一模一样的瓶子，其中有 999 瓶是普通的水，有一瓶是毒药。任何喝下毒药的生物都会在一星期之后死亡。现在，你只有 10 只小白鼠和一星期的时间，如何检验出哪个瓶子里有毒药？<br><a id="more"></a><br>分析：</p>
 <p>直接贴知乎回答吧  </p>
 <blockquote>
@@ -65,7 +65,7 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;几道面试笔试题&quot;&gt;&lt;a href=&quot;#几道面试笔试题&quot; class=&quot;headerlink&quot; title=&quot;几道面试笔试题&quot;&gt;&lt;/a&gt;几道面试笔试题&lt;/h1&gt;&lt;h2 id=&quot;老鼠喝药问题&quot;&gt;&lt;a href=&quot;#老鼠喝药问题&quot; class=&quot;headerlink&quot; title=&quot;老鼠喝药问题&quot;&gt;&lt;/a&gt;老鼠喝药问题&lt;/h2&gt;&lt;p&gt;问题：  &lt;/p&gt;
+      &lt;h2 id=&quot;老鼠喝药问题&quot;&gt;&lt;a href=&quot;#老鼠喝药问题&quot; class=&quot;headerlink&quot; title=&quot;老鼠喝药问题&quot;&gt;&lt;/a&gt;老鼠喝药问题&lt;/h2&gt;&lt;p&gt;问题：  &lt;/p&gt;
 &lt;p&gt;有 1000 个一模一样的瓶子，其中有 999 瓶是普通的水，有一瓶是毒药。任何喝下毒药的生物都会在一星期之后死亡。现在，你只有 10 只小白鼠和一星期的时间，如何检验出哪个瓶子里有毒药？&lt;br&gt;
     
     </summary>
