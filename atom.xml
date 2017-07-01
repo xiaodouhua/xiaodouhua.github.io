@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="xiaodouhua.github.io/"/>
-  <updated>2017-04-06T15:48:17.568Z</updated>
+  <updated>2017-07-01T12:21:53.722Z</updated>
   <id>xiaodouhua.github.io/</id>
   
   <author>
@@ -14,6 +14,340 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>统计学习方法6_决策树</title>
+    <link href="xiaodouhua.github.io/2017/07/01/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%956_%E5%86%B3%E7%AD%96%E6%A0%91/"/>
+    <id>xiaodouhua.github.io/2017/07/01/统计学习方法6_决策树/</id>
+    <published>2017-07-01T13:54:58.244Z</published>
+    <updated>2017-07-01T12:21:53.722Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="决策树"><a href="#决策树" class="headerlink" title="决策树"></a><strong>决策树</strong></h1><p>决策树（decision tree）是一种基本的分类与回归方法，这里主要讨论用于分类的决策树。它<strong>可以认为是if-then规则的集合，也可以认为是定义在特征空间与类空间上的条件概率分布</strong>。其主要的有点是模型具有<strong>可读性，分类速度快</strong>，学习时利用训练数据，根据损失函数最小化的原则简历决策树模型。决策树的学习通常包括三个步骤：<strong>特征选择，决策树的生成和决策树的修剪</strong>。</p>
+<h2 id="决策树模型与学习"><a href="#决策树模型与学习" class="headerlink" title="决策树模型与学习"></a>决策树模型与学习</h2><h3 id="决策树模型"><a href="#决策树模型" class="headerlink" title="决策树模型"></a>决策树模型</h3><p>分类决策树模型是一种描述对实例进行分类的树形结构。决策树由结点和有向边组成。结点有两种类型：内部节点和叶节点，内部节点表示一个特征或属性，叶节点表示一个类。</p>
+<p>分类的时候，从根节点开始，当前节点设为根节点，当前节点必定是一种特征，根据实例的该特征的取值，向下移动，直到到达叶节点，将实例分到叶节点对应的类中。</p>
+<h3 id="决策树与if-then规则"><a href="#决策树与if-then规则" class="headerlink" title="决策树与if-then规则"></a>决策树与if-then规则</h3><p>决策树的属性结构其实对应着一个规则集合：由决策树的根节点到叶节点的每条路径构成的规则组成；路径上的内部特征对应着if条件，叶节点对应着then结论。决策树和规则集合是等效的，都具有一个重要的性质：<strong>互斥且完备</strong>。也就是说<strong>任何实例都被且仅被一条路径或规则覆盖</strong>。</p>
+<h3 id="决策树与条件概率分布"><a href="#决策树与条件概率分布" class="headerlink" title="决策树与条件概率分布"></a>决策树与条件概率分布</h3><p>决策树还是给定特征条件下类的条件概率分布。该条件分布定义在特征空间的划分上，特征空间被花费为互不相交的单元，每个单元定义一个类的概率分布就构成了一个条件概率分布。决策树的每条路径对应于划分中的一个单元。给定实例的特征X，一定落入某个划分，决策树选取该划分里最大概率的类作为结果输出。如图：</p>
+<p><img src="http://www.ppvke.com/Blog/wp-content/uploads/2015/11/31d167e80a09a46b488017e5dee1f303.jpg" alt="决策树与条件概率分布.png"></p>
+<p>关于b图，将a图的基础上增加一个条件概率的维度P，代表在当前特征X的情况下，分类为+的后验概率。图中的方块有些地方完全没有，比如x2轴上[a2,1]这个区间，说明只要X落在这里，Y就一定是-的，同理对于[0,a1]和[0,a2]围起来的一定是+的。有些地方只有一半，比如x1轴上[a1,1]这个区间，说明决策树认为X落在这里，Y只有一半概率是+的，根据选择条件概率大的类别的原则，就认为Y是-的（因为不满足P(+)&gt;0.5)。</p>
+<h3 id="决策树学习"><a href="#决策树学习" class="headerlink" title="决策树学习"></a>决策树学习</h3><p>决策树学习，假设给定训练数据集D={(x1,y1),(x2,y2),⋯,(xN,yN)}</p>
+<p>其中，xi为输入实例（特征向量）yi为类标记，N为样本容量。学习的目标是根据给定的训练数据集构建一个决策树模型，使它能够对实例进行正确的分类。 </p>
+<p>决策树学习本质上是从训练数据集中归纳出一组分类规则。</p>
+<p>我们需要的是一个与训练数据矛盾较小的决策树，同时具有很好的泛化能力。另一个角度看，决策树学习是由训练数据集估计条件概率模型。我们选择的条件概率模型应该不仅对训练数据有很好的拟合，而且对未知数据有很好的预测。 </p>
+<p>决策树学习用损失函数表示这一目标。如下所述，决策树学习的损失函数通常是正则化的极大似然函数。</p>
+<p>决策树学习的策略是以损失函数为目标函数的最小化。</p>
+<p>当损失函数确定以后，学习问题就变为在损失函数意义下选择最优决策树的问题。因为从所有可能的决策树中选取最优决策树是NP完全问题，所以现实中决策树学习算法通常采用启发式方法，近似求解这一最优化问题。这样得到的决策树是次最优(sub-optimal)的。 </p>
+<p>决策树学习的算法通常是一个递归地选择最优特征，并根据该特征对训练数据进行分割，使得对各个子数据集有一个最好的分类的过程。</p>
+<h2 id="特征选择"><a href="#特征选择" class="headerlink" title="特征选择"></a><strong>特征选择</strong></h2><h3 id="特征选择问题"><a href="#特征选择问题" class="headerlink" title="特征选择问题"></a><strong>特征选择问题</strong></h3><p><strong>特征选择在于选取对训练数据具有分类能力的特征。</strong>这样可以提高决策树学习的效率。<strong>如果利用一个特征进行分类的结果与随机分类的结果没有很大差别，则称这个特征是没有分类能力的。</strong>经验上扔掉这样的特征对决策树学习的精度影响不大。通常<strong>特征选择的准则</strong>是<strong>信息增益或信息增益比</strong></p>
+<h3 id="信息增益"><a href="#信息增益" class="headerlink" title="信息增益"></a><strong>信息增益</strong></h3><p>在信息论与概率统计中，熵（entropy）是表示随机变量不确定性的度量。设X是一个取有限个值的离散随机变量，其概率分布为$P(X=x_i)=p<em>i,i=1,2,\cdots,n$，则随机变量X的熵定义为$H(X) = -\sum\limits</em>{i=1}^{n}{p_i\log{p_i}}$</p>
+<p>通常上式中的对数以2为底或者以自然对数e为底，这时熵的单位分别称作比特（bit）或纳特（nat）。由定义可知，熵只依赖于X分布，而与X的取值无关.</p>
+<p>熵越大，随机变量的不确定性就越大。从定义可以验证 $0 \le H(p)\le \log n$,当随机变量只取两个值，例如1,0时，即X的分布为 P(X=1)=p,P(X=0)=1−p,0≤p≤1熵为$H(p)=-p \log_2p-(1-p)\log_2(1-p)$</p>
+<p>由此可知熵随p变化的曲线图：</p>
+<p><a href="http://photo.blog.sina.com.cn/showpic.html#blogid=e561ac510102v9w2&amp;url=http://album.sina.com.cn/pic/004crqmJgy6N5VDcCf3ed" target="_blank" rel="external"><img src="http://s14.sinaimg.cn/small/004crqmJgy6N5VDcCf3ed&amp;690" alt="决策树（主要参考李航的统计学习方法）"></a></p>
+<p>所以当p取0或1时，熵的值为1，变量X完全没有不确定性，当p取0.5时，变量X的不确定性最大。</p>
+<p>条件熵H(Y|X)表示在已知随机变量X的条件下随机变量Y的不确定性，定义为在X给定的条件下，Y的条件概率分布对X的数学期望：$H(Y|X) = \sum\limits_{i=1}^{n}{p_iH(Y|X=x_i)}$,其中，$p_i=P(X=x_i), i=1,2,…,n$</p>
+<p>信息增益（information gain）:表示在得知特征X的条件下，类Y的不确定性减少的程度。定义为训练数据D的经验熵与给定特征X的条件下的数据D的经验条件熵的差值。</p>
+<p>特征A对训练数据集D的信息增益g(D,A)，定义为集合D的经验熵H(D)与特征A给定条件下D的经验条件熵H(D|A)之差，即<br>$g(D,A)=H(D)−H(D|A)$</p>
+<p><strong>一般地，熵H(Y)与条件熵H(Y|X)之差称为互信息（mutual information）</strong>。决策树学习中的信息增益等价于训练数据集中的类与特征的互信息。<br><strong>决策树学习应用信息增益准则选择特征。</strong>信息增益大的特征具有更强的分类能力。<br>根据信息增益准则的<strong>特征选择方法</strong>是：对训练数据集（或子集）D,计算其每个特征的信息增益，并比较他们的大小，选择信息增益最大的特征。</p>
+<h3 id="信息增益比"><a href="#信息增益比" class="headerlink" title="信息增益比"></a><strong>信息增益比</strong></h3><p>以信息增益作为划分训练数据集的特征，存在偏向于选择取值较多的特征的问题。使用信息增益比（information gain ratio）可以对这一问题进行校正。这是特征选择的另一准则。 </p>
+<p><strong>定义（信息增益比）：</strong>特征A对训练数据集D的信息增益比$g_R(D,A)$定义为其信息增益$g(D,A)$与训练数据集D关于特征A的值的熵$H_A(D)$之比，即 :</p>
+<p>$g_R(D,A) = \frac{g(D,A)}{H_A(D)}$</p>
+<p>其中$H<em>A(D)=-\sum</em>{i=1}^n\frac{|D_i|}{|D|}\log_2 \frac{|D_i|}{|D|}$</p>
+<h2 id="决策树的生成"><a href="#决策树的生成" class="headerlink" title="决策树的生成"></a><strong>决策树的生成</strong></h2><h3 id="ID3算法"><a href="#ID3算法" class="headerlink" title="ID3算法"></a><strong>ID3算法</strong></h3><p>ID3算法（interative dichotomiser 3）的核心是在决策树各个结点上应用<strong>信息增益准则</strong>选择特征，<strong>递归</strong>地构建决策树。具体方法是：从根结点（root node）开始，对结点计算所有可能的特征的信息增益，选择信息增益最大的特征作为结点的特征，由该特征的不同取值建立子结点；再对子结点递归地调用以上方法，构建决策树；直到所有特征的信息增益均很小或没有特征可以选择为止。最后得到一个决策树。ID3相当于用极大似然法进行概率模型的选择。 </p>
+<p><strong>ID3算法只有树的生成，所以该算法生成的树容易产生过拟合。</strong></p>
+<h3 id="C4-5的生成方法"><a href="#C4-5的生成方法" class="headerlink" title="C4.5的生成方法"></a><strong>C4.5的生成方法</strong></h3><p>C4.5算法与ID3算法相似，C4.5算法对ID3算法进行了改进。C4.5在生成的过程中，用信息增益比来选择特征。</p>
+<h2 id="决策树的剪枝"><a href="#决策树的剪枝" class="headerlink" title="决策树的剪枝"></a><strong>决策树的剪枝</strong></h2><p><strong>决策树生成算法递归地产生决策树，直到不能继续下去为止。这样产生的树容易出现过拟合现象。</strong>过拟合的原因在于学习时过多地考虑如何提高对训练数据的正确分类，从而构建出过于复杂的决策树，解决这一问题的方法是考虑决策树的复杂度，对已生成的决策树进行简化。<br><strong>在决策树学习中讲已生成的树进行简化的过程称为剪枝（pruning）。</strong><br>决策树的剪枝往往通过极小化决策树整体的损失函数（loss function）或代价函数（cost function）来实现。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;决策树&quot;&gt;&lt;a href=&quot;#决策树&quot; class=&quot;headerlink&quot; title=&quot;决策树&quot;&gt;&lt;/a&gt;&lt;strong&gt;决策树&lt;/strong&gt;&lt;/h1&gt;&lt;p&gt;决策树（decision tree）是一种基本的分类与回归方法，这里主要讨论用于分类的决策树。它&lt;
+    
+    </summary>
+    
+      <category term="读书" scheme="xiaodouhua.github.io/categories/%E8%AF%BB%E4%B9%A6/"/>
+    
+    
+      <category term="算法" scheme="xiaodouhua.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="ML" scheme="xiaodouhua.github.io/tags/ML/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>统计学习方法5_朴素贝叶斯法</title>
+    <link href="xiaodouhua.github.io/2017/05/02/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%955_%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%B3%95/"/>
+    <id>xiaodouhua.github.io/2017/05/02/统计学习方法5_朴素贝叶斯法/</id>
+    <published>2017-05-02T14:20:18.000Z</published>
+    <updated>2017-07-01T12:21:27.196Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="朴素贝叶斯法"><a href="#朴素贝叶斯法" class="headerlink" title="朴素贝叶斯法"></a>朴素贝叶斯法</h2><p>朴素贝叶斯 (naive Bayes) 法是基于贝叶斯定理与特征条件独立假设的分类方法。对于给定的训练数据集，首先基于特征条件独立假设学习输入/输出的联合概率分布；然后基于此模型，对给定的输入x，利用贝叶斯定理求出后验概率最大的输出Y。</p>
+<h3 id="朴素贝叶斯法的学习与分类"><a href="#朴素贝叶斯法的学习与分类" class="headerlink" title="朴素贝叶斯法的学习与分类"></a>朴素贝叶斯法的学习与分类</h3><p><strong>基本方法</strong></p>
+<p>朴素贝叶斯法通过训练数据集学习X和Y的联合概率分布P(X,Y)。</p>
+<p>具体地，学习以下先验概率分布及条件概率分布。</p>
+<p><strong>先验概率分布</strong></p>
+<p><img src="http://images0.cnblogs.com/blog/790160/201507/281255230317660.png" alt="img"></p>
+<p><strong>条件概率分布</strong></p>
+<p><img src="http://images0.cnblogs.com/blog/790160/201507/281255233913617.png" alt="img"></p>
+<p>条件概率分布有指数级数量的参数，其估计实际是不可行的。朴素贝叶斯法对条件概率分布作了<strong>条件独立性</strong>的假设。条件独立性假设是说用于分类的特征在类确定的条件下都是条件独立的。</p>
+<p><img src="http://images0.cnblogs.com/blog/790160/201507/281255237038288.png" alt="img"></p>
+<p>朴素贝叶斯法实际上学习到生成数据的机制，所以属于生成模型。</p>
+<p>朴素贝叶斯法通过最大后验概率(MAP)准则进行类的判决，基于贝叶斯定理，后验概率为：</p>
+<p><img src="http://images0.cnblogs.com/blog/790160/201507/281255245789387.png" alt="img"></p>
+<p>分母相同，则分类器可表示为<img src="http://images0.cnblogs.com/blog/790160/201507/281255255942743.png" alt="img"> </p>
+<p>后验概率最大化等价于0-1损失函数时的期望风险最小化。</p>
+<h3 id="朴素贝叶斯法的参数估计"><a href="#朴素贝叶斯法的参数估计" class="headerlink" title="朴素贝叶斯法的参数估计"></a>朴素贝叶斯法的参数估计</h3><p><strong>极大似然估计</strong></p>
+<p> 先验概率的极大似然估计：<img src="http://images0.cnblogs.com/blog/790160/201507/281255259389172.png" alt="img">  </p>
+<p>设第j个特征x(j)可能取值的集合为<img src="http://images0.cnblogs.com/blog/790160/201507/281255262816601.png" alt="img">，条件概率的极大似然估计：<img src="http://images0.cnblogs.com/blog/790160/201507/281255265634814.png" alt="img">   </p>
+<p>总结算法：</p>
+<p><img src="http://images0.cnblogs.com/blog/790160/201507/281255269537229.png" alt="img"></p>
+<p>贝叶斯估计</p>
+<p>用极大似然估计可能会出现所要估计的概率值为0的情况，使分类产生偏差，解决这一问题的方法是采用贝叶斯估计。条件概率的贝叶斯估计为：</p>
+<p><img src="http://images0.cnblogs.com/blog/790160/201507/281255273752401.png" alt="img"></p>
+<p>式中$lamda$&gt;=0。等价于在随机变量各个取值的频数上赋予一个正数。常取lamda=1，称为拉普拉斯平滑( Laplace smoothing)。同样，先验概率的贝叶斯估计为：</p>
+<p><img src="http://images0.cnblogs.com/blog/790160/201507/281255276104628.png" alt="img"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;朴素贝叶斯法&quot;&gt;&lt;a href=&quot;#朴素贝叶斯法&quot; class=&quot;headerlink&quot; title=&quot;朴素贝叶斯法&quot;&gt;&lt;/a&gt;朴素贝叶斯法&lt;/h2&gt;&lt;p&gt;朴素贝叶斯 (naive Bayes) 法是基于贝叶斯定理与特征条件独立假设的分类方法。对于给定的训练数据集
+    
+    </summary>
+    
+      <category term="读书" scheme="xiaodouhua.github.io/categories/%E8%AF%BB%E4%B9%A6/"/>
+    
+    
+      <category term="算法" scheme="xiaodouhua.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="ML" scheme="xiaodouhua.github.io/tags/ML/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>统计学习方法4_K近邻法</title>
+    <link href="xiaodouhua.github.io/2017/05/01/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%954_K%E8%BF%91%E9%82%BB%E6%B3%95/"/>
+    <id>xiaodouhua.github.io/2017/05/01/统计学习方法4_K近邻法/</id>
+    <published>2017-05-01T14:20:18.000Z</published>
+    <updated>2017-07-01T12:18:18.258Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="K近邻法"><a href="#K近邻法" class="headerlink" title="K近邻法"></a>K近邻法</h1><p>k近邻法（k-nearest neighbor, k-NN）是一种基本<strong>分类与回归方法</strong>。这里只讨论分类问题中的k近邻法。k近邻法的输入为实例的特征向量，对应于特征空间的点；输出为实例的类别，可以取多类。k近邻法假设给定一个训练数据集，其中的实例类别已定。分类时，对新的实例，根据其k个最近邻的训练实例的类别，通过多数表决等方法进行预测。当K=1时，就是我们所熟悉的最近邻方法（NN）。<strong>因此，k近邻法不具有显式的学习过程</strong>。k近邻法实际上利用训练数据集对特征向量空间进行划分，并作为其分类的“模型”。<strong>k值的选择、距离度量及分类决策规则是k近邻法的三个基本要素</strong>。</p>
+<h3 id="k近邻算法"><a href="#k近邻算法" class="headerlink" title="k近邻算法"></a><strong>k近邻算法</strong></h3><p>输入：训练数据集:$T={ (x_1,y_1),(x_2,y_2),\cdots (x_N,y_N)}$,其中,$x_i\in R^n$为实例的特征向量，$y_i\in{c_1,c_2,\cdots c_k}$ 为实例的类别。</p>
+<p>输出：实例x所属的类y</p>
+<p>（1）根据给定的距离度量，在训练集T中找出与x最近邻的k个点，涵盖这k个点的邻域记作$N_k(x)$;<br>（2）在$N<em>k(x)$中根据分类决策规则（如多数表决）决定x的类别y：$y=arg max</em>{c<em>j} \sum</em>{x_i\in N_k(x)}I(y_i=c_j),i=1,2,\cdots N,j=1,2,\cdots K$</p>
+<p>由这个简单的算法过程可以看出来，距离的选择、以及k的选择都是很重要的，这恰好对应的三个要素中的两个，另一个为分类决策规则，一般来说是多数表决法。</p>
+<h3 id="k近邻模型"><a href="#k近邻模型" class="headerlink" title="k近邻模型"></a><strong>k近邻模型</strong></h3><p>k近邻算法使用的模型实际上对应于特征空间的划分，模型由三个基本要素——距离度量、k值的选择和分类决策规则决定。</p>
+<p>KNN是一种memory-based learning，也叫instance-based learning，属于lazy learning。即它没有明显的前期训练过程，而是程序开始运行时，把数据集加载到内存后，不需要进行训练，就可以开始分类了。 具体是每次来一个未知的样本点，就在附近找K个最近的点进行投票。</p>
+<p><strong>相当于把特征空间划分为许多块。</strong></p>
+<h4 id="距离度量"><a href="#距离度量" class="headerlink" title="距离度量"></a><strong>距离度量</strong></h4><p>特征空间中俩个实例的距离是俩个实例点相似程度的反映，k近邻中一般使用欧氏距离，本文中主要只介绍这一种。</p>
+<p>设特征空间<img src="http://images.cnitblog.com/i/499011/201406/302246246522325.jpg" alt="img">是<img src="http://images.cnitblog.com/i/499011/201406/302247309499245.jpg" alt="img">维实数向量空间<img src="http://images.cnitblog.com/i/499011/201406/302249026847771.jpg" alt="img">，<img src="http://images.cnitblog.com/i/499011/201406/302249518096479.jpg" alt="img">，<img src="http://images.cnitblog.com/i/499011/201406/302251140592141.jpg" alt="img">,<img src="http://images.cnitblog.com/i/499011/201406/302252117773340.jpg" alt="img">,<img src="http://images.cnitblog.com/i/499011/201406/302253023878535.jpg" alt="img">的<img src="http://images.cnitblog.com/i/499011/201406/302255346523020.jpg" alt="img">距离定义为<img src="http://images.cnitblog.com/i/499011/201406/302256308407419.jpg" alt="img"></p>
+<p>当p=2时，称为欧氏距离(Euclidean distance).</p>
+<h4 id="K值的选择"><a href="#K值的选择" class="headerlink" title="K值的选择"></a><strong>K值的选择</strong></h4><p>K值的选择对最终的结果有很大的影响.</p>
+<p>如果选择较小的k值，就相当于用较小的领域中的训练实例进行预测，“学习”的近似误差（approximation error）会减小，只有与输入实例相近的（相似的）训练实例才会对预测结果起作用。但是“学习”的估计误差（estimation error）会增大，预测结果会对近邻的实例点非常敏感。如果邻近的实例点恰巧是噪声，预测就会出错。换句话说，<strong>k值的减小就意味着整体模型变得复杂，容易发生过拟合</strong>。<br>如果选择较大的k值，就相当于用较大邻域中的训练实例进行预测。其优点是可以减少学习的估计误差。但缺点是学习的近似误差会增大。这时与输入实例较远的（不相似的）训练实例也会对预测起作用，使预测发生错误。<strong>k值的增大意味着整体的模型变得简单</strong>。<br>如果k=N，那么无论输入实例是什么，都将简单的预测它属于在训练实例中最多的类。这时，模型过于简单，完全忽略训练实例中的大量有用信息，是不可取的。<br>在应用中，<strong>k值一般取一个比较小的数值。通常采用交叉验证法来选取最优的k值</strong>。</p>
+<h4 id="分类决策规则"><a href="#分类决策规则" class="headerlink" title="分类决策规则"></a><strong>分类决策规则</strong></h4><p><strong>k近邻法中的分类决策规则往往是多数表决，即由输入实例的k个邻近的训练实例中的多数类决定输入实例的类。</strong><br><strong>多数表决规则等价于经验风险最小化。</strong></p>
+<h3 id="实现-构造kd树"><a href="#实现-构造kd树" class="headerlink" title="实现-构造kd树"></a><strong>实现-构造kd树</strong></h3><p>kd树是一种对k维空间中的实例点进行存储以便对其进行快速检索的树形数据结构。 </p>
+<h4 id="构造平衡kd树"><a href="#构造平衡kd树" class="headerlink" title="构造平衡kd树"></a><strong>构造平衡kd树</strong></h4><p>输入：k维空间数据集$T={ x_1,x_2,\cdots, x_N}$， 其中$x_i=(x_i^{(1)},x_i^{(2)}, \cdots x_i^{(k)})^T,i=1,2,\cdots,N;$;<br>输出：kd树。<br>（1）开始：构造根结点，根结点对应于包含T的k维空间的超矩形区域。<br>选择以$x^{(1)}$为坐标轴，以T中所有的实例的$x^{(1)}$坐标的<strong>中位数</strong>为切分点，将根结点对应的超矩形区域切分为两个子区域。切分由通过切分点并与坐标轴$x^{(1)}$垂直的超平面实现。<br>由根结点生成深度为1的左、右子结点：左子结点对应左边$x^{(1)}$小于切分点的子区域，右子结点对应于坐标$x^{(1)}$大于切分点的子区域。<br>将落在切分超平面上的实例点保存在根结点。<br>（2）重复：对深度为j的结点，选择$x^{(l)}$为切分的坐标轴，$l=j(mod )k+1$，以该结点的区域中的所有实例的$x^{(l)}$坐标的中位数为切分点，将该结点对应的超矩形区域切分为两个子区域。切分由通过切分点并与坐标轴$x^{(l)}$垂直的超平面实现。<br>由该结点生成的深度为j+1的左、右子结点：左子结点对应坐标$x^{(l)}$小于切分点的子区域，右子结点对应坐标$x^{(l)}$大于切分点的子区域。<br>将落在切分超平面上的实例点保存在该结点。<br>（3）直到两个子区域没有实例存在时停止，从而形成kd树的区域划分。</p>
+<h4 id="搜索kd树"><a href="#搜索kd树" class="headerlink" title="搜索kd树"></a><strong>搜索kd树</strong></h4><p>利用kd树可以省去对大部分数据点的搜索，从而减少搜索的即使是算量。这里以最近邻（k=1）为例加以叙述，同样的方法可以应用到k近邻。<br><strong>用kd树的最近邻搜索</strong><br>输入：已构造的kd树，目标点x；<br>输出：x的最近邻<br>（1）在kd树中找到包含目标点x的叶结点：从根结点出发，递归地向下访问kd树。若目标点x当前维的坐标小于切分点的坐标，则移动到左子结点，否则移动到右子结点。直到子结点为叶节点为止。<br>（2）以此叶节点为“当前最近点”<br>（3）递归地向上回退，在每个结点进行以下操作：<br>（a）如果该结点保存的实例点比当前最近点距离目标点更近，则以该实例点为“当前最近点”<br>（b）当前最近点一定存在于该结点一个子结点对应的区域。检查该子结点对应的区域是否与以目标点为球心，以目标点与“当前最近点”间的距离为半径的超球体相交。<br>如果相交，可能在另一个子结点对应的区域内存在距目标更近的点，移动到另一个子结点，接着，递归地进行最近邻搜索：<br>如果不相交，向上回退<br>（4）当回退到根结点时，搜索结束。最后的“当前最近点”即为x的最近邻点。 </p>
+<p><img src="http://my.csdn.net/uploads/201206/03/1338711447_6884.gif" alt="img"></p>
+<p>如果实例点是随机分布的，kd树搜索的平均计算复杂度是O(logN),这里N是训练实例数。kd树更适合用于训练实例数远大于空间维数时的k近邻搜索，当空间维数接近训练实例数时，它的效率会迅速下降，几乎接近线性扫描。**</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;K近邻法&quot;&gt;&lt;a href=&quot;#K近邻法&quot; class=&quot;headerlink&quot; title=&quot;K近邻法&quot;&gt;&lt;/a&gt;K近邻法&lt;/h1&gt;&lt;p&gt;k近邻法（k-nearest neighbor, k-NN）是一种基本&lt;strong&gt;分类与回归方法&lt;/strong&gt;。这里
+    
+    </summary>
+    
+      <category term="读书" scheme="xiaodouhua.github.io/categories/%E8%AF%BB%E4%B9%A6/"/>
+    
+    
+      <category term="算法" scheme="xiaodouhua.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="ML" scheme="xiaodouhua.github.io/tags/ML/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>统计学习方法3_感知机</title>
+    <link href="xiaodouhua.github.io/2017/04/26/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%953_%E6%84%9F%E7%9F%A5%E6%9C%BA/"/>
+    <id>xiaodouhua.github.io/2017/04/26/统计学习方法3_感知机/</id>
+    <published>2017-04-26T14:20:18.000Z</published>
+    <updated>2017-07-01T12:25:51.181Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="感知机"><a href="#感知机" class="headerlink" title="感知机"></a>感知机</h1><p>感知机（perception）是一种<strong>二类分类</strong>的<strong>线性分类</strong>模型<br>输入：实例的特征向量<br>输出：实例的类别（+1，-1）<br>感知机：输入空间中将实例划分为正负两类的<strong>分离超平面</strong>，属于<strong>判别模型</strong><br>感知机学习<br>目的：求出将训练数据进行线性划分的分离超平面<br>方法：<strong>导入基于误分类的损失函数，利用梯度下降法对损失函数进行极小化，求得感知机模型</strong></p>
+<ul>
+<li><p>2.1感知机模型<br>感知机： </p>
+<p>$f(x)=sign(w⋅x+b)$</p>
+<p>其中：w为权值（或权值向量weight vector, b为偏值（bias）,sign为符号函数</p>
+</li>
+</ul>
+<p>$ f(n)= \begin{cases}+1, &amp; \text {n&gt;=0} \ -1, &amp; \text{n&lt;0} \end{cases} $</p>
+<ul>
+<li><p>2.2感知机学习策略<br><strong>数据集线性可分</strong>：存在某个超平面S能够将数据集T的正负实例点完全正确地划分到超平面的两侧，即：<br>对所有yi=+1的实例，有w⋅xi+b&gt;0<br>对所有yi=−1的实例，有w⋅xi+b&lt;0<br>则称数据集T为线性可分数据集。<br><strong>损失函数</strong>的选择：<br>1：误分类点总数，该函数不是参数w，b的连续可导函数，不易优化<br>2：<strong>误分类点到超平面S的总距离</strong> </p>
+<p><img src="http://img.my.csdn.net/uploads/201212/23/1356265741_5071.jpg" alt="img"></p>
+<p>损失函数是非负的，如果没有误分类点，损失函数值为0。</p>
+<p>误分类点越少，误分类点离超平面越近，损失函数值就越小，损失函数是w，b的连续可导函数。</p>
+</li>
+</ul>
+<ul>
+<li><p>2.3感知机学习算法<br>原始形式、对偶形式 </p>
+<p>随机梯度下降法：<br>任意选取一个超平面w0,b0,利用梯度下降法不断极小化目标函数（极小化的过程是一次随机选取一个误分类点使其梯度下降）<br><strong>随机选取误分类点(xi,yi)</strong>,对w，b进行更新： （随机梯度下降）  </p>
+<p>原始形式：</p>
+<p>每来一个样本 (xi,yi)，计算若yi(w⋅xi+b)≤0，</p>
+<p>说明误分了，要用梯度下降：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">w=w+ηyixi</span><br><span class="line"></span><br><span class="line">b=b+ηyi</span><br><span class="line"></span><br><span class="line">其中，η(0&lt;η≤1)为步长（学习率）</span><br></pre></td></tr></table></figure>
+<p>更新权重 w,b</p>
+<p>若大于0，说明分类正确，不用管。这样直到遍历整个样本都没有误分点，算法停止。  通过迭代可使损失函数    L(w,b)  不断减小，直至0</p>
+<p>​</p>
+<p>通过观察上面梯度下降的更新公式，发现参数 w 最终的取值，其实是初值（初值为0可以忽略）加上每个样本的某个整数倍（其实就是分错的次数）</p>
+<p>$$\begin{cases} w = \sum_{i=1}^{N}\alpha_iy_ix<em>i  \b  = \sum</em>{i=1}^{N}\alpha_iy_i  \end{cases}$$</p>
+<p>其中，$\alpha_i$≥0, i=1,2,…,N 表示每个样本点在更新过程中被误分类的次数。从 α 中我们还可以看出来，若该值越大，则说明对应的样本点被误分的次数越大，也就离超平面越近，因此难分类。</p>
+<p>判断是否属于误分点时，我们用公式$y<em>i(\sum</em>{j=1}^n\alpha_jy_jx_j⋅x_i+b)≤0​$来判断。对比之前的 w,b 版本，其实只是把 w 用 α代替而已。注意后面的点乘，即内积，我们可以先事先计算好并存储在Gram矩阵中$（G=[x_i⋅x<em>j]</em>{N×N}）​$，以减少实时计算量。</p>
+<p>​</p>
+</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;感知机&quot;&gt;&lt;a href=&quot;#感知机&quot; class=&quot;headerlink&quot; title=&quot;感知机&quot;&gt;&lt;/a&gt;感知机&lt;/h1&gt;&lt;p&gt;感知机（perception）是一种&lt;strong&gt;二类分类&lt;/strong&gt;的&lt;strong&gt;线性分类&lt;/strong&gt;模型&lt;br
+    
+    </summary>
+    
+      <category term="读书" scheme="xiaodouhua.github.io/categories/%E8%AF%BB%E4%B9%A6/"/>
+    
+    
+      <category term="算法" scheme="xiaodouhua.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="ML" scheme="xiaodouhua.github.io/tags/ML/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>统计学习方法2</title>
+    <link href="xiaodouhua.github.io/2017/04/23/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%952/"/>
+    <id>xiaodouhua.github.io/2017/04/23/统计学习方法2/</id>
+    <published>2017-04-23T14:20:18.000Z</published>
+    <updated>2017-07-01T13:53:37.081Z</updated>
+    
+    <content type="html"><![CDATA[<p>监督学习的目的是找到一个输入输出映射（模型），使得这个模型不仅对训练数据有很好的拟合能力，对于未知数据，它也有很好的预测能力。这篇博客介绍选择和评估模型的标准。本篇博客一共有以下几个重点：训练误差与测试误差、泛化能力、过拟合。</p>
+<h2 id="训练误差与测试误差"><a href="#训练误差与测试误差" class="headerlink" title="训练误差与测试误差"></a>训练误差与测试误差</h2><p><strong>训练误差</strong>是模型$Y={\hat{f}}(X))$关于训练集的平均损失来表示：$R<em>{emp}({\hat{f}})=\frac{1}{N}\sum</em>{i=1}^{N}L(y<em>{i},{\hat{f}}(x</em>{i}))$</p>
+<p>其中$N$为训练集中数据的个数；损失函数$L(Y,f(X))$在统计学三要素中有介绍，可以看到，训练误差也就是该篇文章所提到的经验损失函数。训练误差的大小，可以说明问题是不是一个容易学习的问题。</p>
+<p><strong>测试误差</strong>是模型$Y={\hat{f}}(X)$关于测试集数据的平均损失：<br>$$R<em>{test}({\hat{f}})=\frac{1}\sum</em>{i=1}^{N’}L(y<em>i, {\hat{f}}(x</em>{i}))$$</p>
+<p>其中${N}’$为测试集中数据的个数。测试误差反应了学习模型对于未知的测试集中数据的预测能力。由于测试误差只是表征了对于测试集中数据的预测能力，我们可以更一般的引申一下，由此引入了模型对于所有未知数据预测能力——泛化能力。</p>
+<p>$$e<em>{test} = \frac{1}{N’}\sum</em>{i=1}^N’ I(y_i \neq f(x_i))$$</p>
+<p>其中 $I(\cdot)$ 为指标函数（indicator function），当$\cdot$为真是返回$1$ ，否则返回 $0$；$N’$ 为测试样本容量，测试准确率（或称为精度（accuracy））：$acc<em>{test} = 1 - e</em>{test}$</p>
+<h2 id="泛化能力"><a href="#泛化能力" class="headerlink" title="泛化能力"></a>泛化能力</h2><h3 id="泛化误差"><a href="#泛化误差" class="headerlink" title="泛化误差"></a>泛化误差</h3><p>泛化能力用来表征学习模型对于未知数据的预测能力。</p>
+<p>很显然，我们没有办法对所有的数据进行预测然后判断来计算一个模型的模型的泛华能力，所以在<strong>实际应用</strong>当中，我们一般还是用的测试集中的数据来近似泛化能力。</p>
+<p>但是，统计学习也在<strong>理论上</strong>试图对学习方法的泛化能力进行了分析，首先给出泛化误差的定义：用学到的$\hat{f}$对未知数据进行预测：  </p>
+<p>$R<em>{exp}(\hat{f})=E[L(Y,\hat{f}(X))]=\int L(y</em>{i},\hat{f}(x_{i}))P(x,y)dxdy$</p>
+<p>泛化误差越小，学习模型的泛化能力越好。可以看到，泛化误差实际上就是统计学三要素中介绍的风险函数。由上篇博客我们可知，泛化误差（风险函数）不可计算。</p>
+<h3 id="过拟合与欠拟合"><a href="#过拟合与欠拟合" class="headerlink" title="过拟合与欠拟合"></a>过拟合与欠拟合</h3><p>训练误差很小而泛化误差很大时称为过拟合，与之相对的是<strong>欠拟合（underfitting）</strong>。例如多项式拟合：</p>
+<p>$$f_M(x, \omega) = \omega_0 + \omega_1x + \omega_2x^2+\dots+\omega<em>Mx^M = \sum</em>{j=0}^M\omega_jx^j$$</p>
+<p>当选取 $M$ 个参数进行训练时，可能出现下列情况：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/21342-d4f50bd92c98bf51.png?imageMogr2/auto-orient/strip%7CimageView2/2" alt="fitting"></p>
+<p>当 $M = 0$ 和 $M = 1$ 时，模型为直线，拟合效果很差，即欠拟合；当 $M = 9$ 时，模型曲线经过了每一个训练数据点，训练误差为 0，但是无法预测新的数据，因此泛化误差很大，即过拟合。</p>
+<h3 id="测试误差的评估方法"><a href="#测试误差的评估方法" class="headerlink" title="测试误差的评估方法"></a>测试误差的评估方法</h3><ol>
+<li>留出法（hold-out）</li>
+<li>交叉验证法（cross validation）</li>
+<li>自助法（bootstrapping）</li>
+<li>调参（parameter tuning）</li>
+</ol>
+<h4 id="留出法"><a href="#留出法" class="headerlink" title="留出法"></a>留出法</h4><p>将数据集 $D$ 划分为 $S, T$：</p>
+<p>$$D = S \cap T, S \cup T = \emptyset$$</p>
+<p>并采用<strong>分层采样（stratified sampling）</strong>，通常选用 $2/3 - 4/5$ 用于训练</p>
+<h4 id="交叉验证法"><a href="#交叉验证法" class="headerlink" title="交叉验证法"></a>交叉验证法</h4><p>将 $D$ 划分为 $k$ 个大小相似的互斥子集：</p>
+<p>$$D = D_1 \cup D_2 \cup \dots \cup D_k, D_i \cap D_j = \emptyset (i \neq j)$$</p>
+<p>每次用 $k-1$ 个子集作为训练集，剩下一个作为测试集，称为<strong>k折交叉验证（k-fold cross validation）</strong>。$k$ 通常取 10，并随机使用不同划分重复 $p$ 次，最终取 $p$ 次结果均值，例如“10次10折交叉验证”。</p>
+<p>假设数据集 $D$ 容量为 $m$，若 $k = m$，则称为<strong>留一法（Leave-One-Out, LOO）</strong>。留一法苹果结果比较准确，但计算开销也相应较大。</p>
+<h4 id="自助法"><a href="#自助法" class="headerlink" title="自助法"></a>自助法</h4><p>以<strong>自助采样法（bootstrap sampling）</strong>为基础，从 $D$ 中有放回地随机抽取 $m$ 次，得到同样包含 $m$ 个样本的 $D’$，$D$ 中有一部分样本会在 $D’$ 中出现多次，而另一部分则未出现，$m$ 次重采样始终未被采到的概率是：</p>
+<p>$$\lim_{m\rightarrow\infty}(1-\frac{1}{m})^m \rightarrow \frac{1}{e} \approx 0.368$$,即 $36.8\%$ 的样本未出现在 $D’$。以 $D’$ 作为训练集，$D - D’$ 作为测试集。自助法在数据集较小、难以划分训练/测试集时很有用。</p>
+<h3 id="性能度量"><a href="#性能度量" class="headerlink" title="性能度量"></a>性能度量</h3><p>除了精度（$acc<em>{test}$）和错误率（$e</em>{test}$），还需要反映任务需求的性能度量指标。</p>
+<ol>
+<li>查准率、查全率与 $F_1$</li>
+<li>ROC &amp; AUC</li>
+<li>代价矩阵</li>
+</ol>
+<h4 id="查准率、查全率与-F-1"><a href="#查准率、查全率与-F-1" class="headerlink" title="查准率、查全率与 $F_1$"></a>查准率、查全率与 $F_1$</h4><p><img src="http://upload-images.jianshu.io/upload_images/21342-cd4eb53323e1ac52.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p>
+<p>$$ TP + FP + TN + FN = 1$$</p>
+<p>查准率（准确率，precision）：<br>$$P = \frac{TP}{TP + FP}$$</p>
+<p>查全率（召回率，recall）：<br>$$R = \frac{TP}{TP + FN}$$</p>
+<p>希望查全率高，意味着更看重决策的准确性，例如在商品推荐系统，尽量减少错误推荐；希望查全率高，意味着“宁可错杀一千”，例如在罪犯检测过程中。</p>
+<p>$$F<em>1 = \frac{2PR}{P+R}$$<br>$$F</em>\beta = \frac{(1+\beta^2)PR}{(\beta^2+P)+R}$$</p>
+<p>当 $\beta = 1$ 时，$F_\beta = F_1$；$\beta \gt 1$ 时，查全率影响更大；$\beta \lt 1$ </p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;监督学习的目的是找到一个输入输出映射（模型），使得这个模型不仅对训练数据有很好的拟合能力，对于未知数据，它也有很好的预测能力。这篇博客介绍选择和评估模型的标准。本篇博客一共有以下几个重点：训练误差与测试误差、泛化能力、过拟合。&lt;/p&gt;
+&lt;h2 id=&quot;训练误差与测试误差&quot;&gt;
+    
+    </summary>
+    
+      <category term="读书" scheme="xiaodouhua.github.io/categories/%E8%AF%BB%E4%B9%A6/"/>
+    
+    
+      <category term="算法" scheme="xiaodouhua.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="ML" scheme="xiaodouhua.github.io/tags/ML/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>统计学习方法1</title>
+    <link href="xiaodouhua.github.io/2017/04/22/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%951/"/>
+    <id>xiaodouhua.github.io/2017/04/22/统计学习方法1/</id>
+    <published>2017-04-22T12:20:18.000Z</published>
+    <updated>2017-07-01T12:25:48.165Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="统计学习方法-模型-策略-方法"><a href="#统计学习方法-模型-策略-方法" class="headerlink" title="统计学习方法=模型+策略+方法"></a><strong>统计学习方法=模型+策略+方法</strong></h2><p>统计学习方法之间的不同，主要来自于其模型、策略、算法的不同。确定了模型、策略和算法，统计学习方法也就确定了。</p>
+<p><strong>Note:</strong> 以下以监督学习为基础来进行论述。非监督学习和强化学习同样也拥有这三要素。  </p>
+<h3 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h3><p>在监督学习当中，我们的<strong>目的是学习一个由输入到输出的映射，这个映射就是模型</strong>。一般来说，模型有两种形式，一种是概率模型（由条件概率分布表示的模型），另一种形式是非概率模型（由决策函数表示的模型）。我们根据实际情况和具体的学习方法来决定是用概率模型还是用非概率模型。   </p>
+<p>模型的假设空间（hypothesis space）是一集合：由输入空间到输出空间所有映射的集合，包含所有可能的条件概率分布或决策函数。  </p>
+<p>假设空间${ F}={ f|Y=f(X)} $,这时候${\scr F}$是决策函数的集合，由参数向量决定： ${F}={ f|Y=f_\theta(X)}$，$\theta$取值于n维欧式空间$R^n$,称为参数空间  。</p>
+<p>表示为条件概率集合${ F}={ P|P(Y|X)} $,${F}$是一个参数向量决定的条件概率分布簇。  </p>
+<h3 id="策略"><a href="#策略" class="headerlink" title="策略"></a>策略</h3><p>统计学习的目标在于从假设空间中选取最优模型。策略即为按照什么样的准则或方法来找到这个最优模型。首先介绍损失函数和风险函数。 </p>
+<ul>
+<li><strong>损失函数（代价函数）： 一次预测的好坏</strong></li>
+<li><strong>风险函数： 平均意义下模型预测的好坏</strong> </li>
+</ul>
+<p>包括：</p>
+<p>损失函数：</p>
+<ul>
+<li>0-1损失函数 0-1 loss function</li>
+<li>平方损失函数 quadratic loss function</li>
+<li>绝对损失函数 absolute loss function</li>
+<li>对数损失函数 </li>
+</ul>
+<p><img src="http://img.blog.csdn.net/20160725111234270" alt="这里写图片描述"><br><strong>2）风险函数</strong></p>
+<p><img src="http://img.blog.csdn.net/20160725111410273" alt="这里写图片描述"></p>
+<p>模型f(x)关于训练数据集的平均损失称为经验风险（empirical risk）或经验损失（empirical loss），记作$R_{emp} $.</p>
+<p><img src="http://img.blog.csdn.net/20160725111432874" alt="这里写图片描述"> </p>
+<p>期望风险Rexp(f)是模型关于联合分布的期望损失，经验风险Remp(f)是模型关于训练样本集的平均损失。根据大数定律，当样本容量N趋于无穷时，经验风险Rempf(x)趋于期望风险Rexpf(x)，所以一个很自然的想法是用经验风险估计期望风险。但是，<strong>由于现实中训练样本数目有限甚至很小，所以用经验风险估计期望风险常常并不理想，常常会导致过拟合。为了防止过拟合现象，结构风险最小化这个策略被提了出来。</strong></p>
+<p>当样本容量很小时， 经验风险最小化学习的效果未必很好， 会产生“ 过拟合over-fitting”。</p>
+<p>结构风险最小化 structure risk minimization， 为防止过拟合提出的策略， 等价于正则化（ regularization） ， 加入正则化项regularizer， 或罚项 penalty term。惩罚项的大小与模型复杂度有关。</p>
+<p><strong>3)经验风险最小化</strong></p>
+<p>在假设空间，损失函数以及训练数据集确定的情况下，经验风险函数式就可以确定，经验风险最小化（empirical risk<br>minimizatiion, ERM）的策略认为，经验风险最小的模型是最优模型。 <img src="http://img.blog.csdn.net/20160725111551109" alt="这里写图片描述">   </p>
+<p>当样本容量是够大时，经验风险最小化能保证有很好的学习效果，在现实中被广泛应用，比如，极大似然估计（maximum likelihood estimation）就是经验风险最小化的一个例子，当模型是条件概率分布，损失函数是对数损失函数时，经验风险最小化就等价于极大似然估计。但是，当样本容量很小时，经验风险最小化学习的效果就未必很好，会产生“过拟合（over-fitting）”现象。</p>
+<p><strong>4)结构化风险最小化</strong></p>
+<p>结构化风险最小化（structural risk minimization, SRM）是为了防止过拟合而提出来的策略。结构风险在经验风险上加上表示模型复杂度的正则化项（regularizer）或罚项（penalty term）。在假设空间，损失函数以及训练数据集确定的情况下，结构风险的定义是：<br><img src="http://img.blog.csdn.net/20160725111735667" alt="这里写图片描述"><br>其中J(f)为模型的复杂度，是定义在假设空间 F 上的泛函，模型 f 越复杂，复杂度J(f)就越大；反之，模型 f 越简单，复杂度J(f)就越小，也就是说，<strong>复杂度表示了对复杂模型的惩罚</strong>，λ≥0是系数，用以权衡经验风险和模型复杂度，结构风险小需要经验风险与模型复杂度同时小，结构风险小的模型往往对训练数据以及未知的测试数据都有较好的预测。<br>结构风险最小化的策略认为结构风险最小的模型是最优的模型：<br><img src="http://img.blog.csdn.net/20160725111755532" alt="这里写图片描述"></p>
+<p>综上，我们在统计学习中的策略一般有两种——经验风险最小化，结构风险最小化。此时，我们就把统计学习问题转为了求解下面目标函数的优化问题：<br><img src="http://img.blog.csdn.net/20160725111922419" alt="这里写图片描述"> 或者： <img src="http://img.blog.csdn.net/20160725111940248" alt="这里写图片描述"></p>
+<p>综上，我们在统计学习中的策略一般有两种——经验风险最小化，结构风险最小化。此时，我们就把统计学习问题转为了求解下面目标函数的优化问题：<br><img src="http://img.blog.csdn.net/20160725111922419" alt="这里写图片描述"> 或者： <img src="http://img.blog.csdn.net/20160725111940248" alt="这里写图片描述"></p>
+<h2 id="模型评估与模型选择"><a href="#模型评估与模型选择" class="headerlink" title="模型评估与模型选择"></a>模型评估与模型选择</h2><p>算法是指学习模型的具体计算方法，统计学习基于训练数据集，根据学习策略，从假设空间中选择最优模型，最后需要考虑用什么样的计算方式求解最优模型。这时，统计学习问题归结为最优化问题，统计学习的方法成为求解最优化问题的算法。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;统计学习方法-模型-策略-方法&quot;&gt;&lt;a href=&quot;#统计学习方法-模型-策略-方法&quot; class=&quot;headerlink&quot; title=&quot;统计学习方法=模型+策略+方法&quot;&gt;&lt;/a&gt;&lt;strong&gt;统计学习方法=模型+策略+方法&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;统
+    
+    </summary>
+    
+      <category term="读书" scheme="xiaodouhua.github.io/categories/%E8%AF%BB%E4%B9%A6/"/>
+    
+    
+      <category term="算法" scheme="xiaodouhua.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="ML" scheme="xiaodouhua.github.io/tags/ML/"/>
+    
+  </entry>
   
   <entry>
     <title>几道面试笔试题</title>
