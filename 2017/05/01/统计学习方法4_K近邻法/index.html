@@ -1,0 +1,995 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="算法,ML," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="K近邻法k近邻法（k-nearest neighbor, k-NN）是一种基本分类与回归方法。这里只讨论分类问题中的k近邻法。k近邻法的输入为实例的特征向量，对应于特征空间的点；输出为实例的类别，可以取多类。k近邻法假设给定一个训练数据集，其中的实例类别已定。分类时，对新的实例，根据其k个最近邻的训练实例的类别，通过多数表决等方法进行预测。当K=1时，就是我们所熟悉的最近邻方法（NN）。因此，k近">
+<meta property="og:type" content="article">
+<meta property="og:title" content="统计学习方法4_K近邻法">
+<meta property="og:url" content="xiaodouhua.github.io/2017/05/01/统计学习方法4_K近邻法/index.html">
+<meta property="og:site_name" content="Dou's Blog">
+<meta property="og:description" content="K近邻法k近邻法（k-nearest neighbor, k-NN）是一种基本分类与回归方法。这里只讨论分类问题中的k近邻法。k近邻法的输入为实例的特征向量，对应于特征空间的点；输出为实例的类别，可以取多类。k近邻法假设给定一个训练数据集，其中的实例类别已定。分类时，对新的实例，根据其k个最近邻的训练实例的类别，通过多数表决等方法进行预测。当K=1时，就是我们所熟悉的最近邻方法（NN）。因此，k近">
+<meta property="og:image" content="http://images.cnitblog.com/i/499011/201406/302246246522325.jpg">
+<meta property="og:image" content="http://images.cnitblog.com/i/499011/201406/302247309499245.jpg">
+<meta property="og:image" content="http://images.cnitblog.com/i/499011/201406/302249026847771.jpg">
+<meta property="og:image" content="http://images.cnitblog.com/i/499011/201406/302249518096479.jpg">
+<meta property="og:image" content="http://images.cnitblog.com/i/499011/201406/302251140592141.jpg">
+<meta property="og:image" content="http://images.cnitblog.com/i/499011/201406/302252117773340.jpg">
+<meta property="og:image" content="http://images.cnitblog.com/i/499011/201406/302253023878535.jpg">
+<meta property="og:image" content="http://images.cnitblog.com/i/499011/201406/302255346523020.jpg">
+<meta property="og:image" content="http://images.cnitblog.com/i/499011/201406/302256308407419.jpg">
+<meta property="og:image" content="http://my.csdn.net/uploads/201206/03/1338711447_6884.gif">
+<meta property="og:updated_time" content="2017-07-01T12:18:18.258Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="统计学习方法4_K近邻法">
+<meta name="twitter:description" content="K近邻法k近邻法（k-nearest neighbor, k-NN）是一种基本分类与回归方法。这里只讨论分类问题中的k近邻法。k近邻法的输入为实例的特征向量，对应于特征空间的点；输出为实例的类别，可以取多类。k近邻法假设给定一个训练数据集，其中的实例类别已定。分类时，对新的实例，根据其k个最近邻的训练实例的类别，通过多数表决等方法进行预测。当K=1时，就是我们所熟悉的最近邻方法（NN）。因此，k近">
+<meta name="twitter:image" content="http://images.cnitblog.com/i/499011/201406/302246246522325.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="xiaodouhua.github.io/2017/05/01/统计学习方法4_K近邻法/"/>
+
+
+
+
+
+  <title> 统计学习方法4_K近邻法 | Dou's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?dec9282683a1f4314a3ff6de9767de50";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=58287058";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Dou's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Just For Fun</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'ZYix_7VguysjZTVAL-RC','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="xiaodouhua.github.io/2017/05/01/统计学习方法4_K近邻法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dou">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dou's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                统计学习方法4_K近邻法
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-01T22:20:18+08:00">
+                2017-05-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书/" itemprop="url" rel="index">
+                    <span itemprop="name">读书</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="K近邻法"><a href="#K近邻法" class="headerlink" title="K近邻法"></a>K近邻法</h1><p>k近邻法（k-nearest neighbor, k-NN）是一种基本<strong>分类与回归方法</strong>。这里只讨论分类问题中的k近邻法。k近邻法的输入为实例的特征向量，对应于特征空间的点；输出为实例的类别，可以取多类。k近邻法假设给定一个训练数据集，其中的实例类别已定。分类时，对新的实例，根据其k个最近邻的训练实例的类别，通过多数表决等方法进行预测。当K=1时，就是我们所熟悉的最近邻方法（NN）。<strong>因此，k近邻法不具有显式的学习过程</strong>。k近邻法实际上利用训练数据集对特征向量空间进行划分，并作为其分类的“模型”。<strong>k值的选择、距离度量及分类决策规则是k近邻法的三个基本要素</strong>。</p>
+<h3 id="k近邻算法"><a href="#k近邻算法" class="headerlink" title="k近邻算法"></a><strong>k近邻算法</strong></h3><p>输入：训练数据集:$T={ (x_1,y_1),(x_2,y_2),\cdots (x_N,y_N)}$,其中,$x_i\in R^n$为实例的特征向量，$y_i\in{c_1,c_2,\cdots c_k}$ 为实例的类别。</p>
+<p>输出：实例x所属的类y</p>
+<p>（1）根据给定的距离度量，在训练集T中找出与x最近邻的k个点，涵盖这k个点的邻域记作$N_k(x)$;<br>（2）在$N<em>k(x)$中根据分类决策规则（如多数表决）决定x的类别y：$y=arg max</em>{c<em>j} \sum</em>{x_i\in N_k(x)}I(y_i=c_j),i=1,2,\cdots N,j=1,2,\cdots K$</p>
+<p>由这个简单的算法过程可以看出来，距离的选择、以及k的选择都是很重要的，这恰好对应的三个要素中的两个，另一个为分类决策规则，一般来说是多数表决法。</p>
+<h3 id="k近邻模型"><a href="#k近邻模型" class="headerlink" title="k近邻模型"></a><strong>k近邻模型</strong></h3><p>k近邻算法使用的模型实际上对应于特征空间的划分，模型由三个基本要素——距离度量、k值的选择和分类决策规则决定。</p>
+<p>KNN是一种memory-based learning，也叫instance-based learning，属于lazy learning。即它没有明显的前期训练过程，而是程序开始运行时，把数据集加载到内存后，不需要进行训练，就可以开始分类了。 具体是每次来一个未知的样本点，就在附近找K个最近的点进行投票。</p>
+<p><strong>相当于把特征空间划分为许多块。</strong></p>
+<h4 id="距离度量"><a href="#距离度量" class="headerlink" title="距离度量"></a><strong>距离度量</strong></h4><p>特征空间中俩个实例的距离是俩个实例点相似程度的反映，k近邻中一般使用欧氏距离，本文中主要只介绍这一种。</p>
+<p>设特征空间<img src="http://images.cnitblog.com/i/499011/201406/302246246522325.jpg" alt="img">是<img src="http://images.cnitblog.com/i/499011/201406/302247309499245.jpg" alt="img">维实数向量空间<img src="http://images.cnitblog.com/i/499011/201406/302249026847771.jpg" alt="img">，<img src="http://images.cnitblog.com/i/499011/201406/302249518096479.jpg" alt="img">，<img src="http://images.cnitblog.com/i/499011/201406/302251140592141.jpg" alt="img">,<img src="http://images.cnitblog.com/i/499011/201406/302252117773340.jpg" alt="img">,<img src="http://images.cnitblog.com/i/499011/201406/302253023878535.jpg" alt="img">的<img src="http://images.cnitblog.com/i/499011/201406/302255346523020.jpg" alt="img">距离定义为<img src="http://images.cnitblog.com/i/499011/201406/302256308407419.jpg" alt="img"></p>
+<p>当p=2时，称为欧氏距离(Euclidean distance).</p>
+<h4 id="K值的选择"><a href="#K值的选择" class="headerlink" title="K值的选择"></a><strong>K值的选择</strong></h4><p>K值的选择对最终的结果有很大的影响.</p>
+<p>如果选择较小的k值，就相当于用较小的领域中的训练实例进行预测，“学习”的近似误差（approximation error）会减小，只有与输入实例相近的（相似的）训练实例才会对预测结果起作用。但是“学习”的估计误差（estimation error）会增大，预测结果会对近邻的实例点非常敏感。如果邻近的实例点恰巧是噪声，预测就会出错。换句话说，<strong>k值的减小就意味着整体模型变得复杂，容易发生过拟合</strong>。<br>如果选择较大的k值，就相当于用较大邻域中的训练实例进行预测。其优点是可以减少学习的估计误差。但缺点是学习的近似误差会增大。这时与输入实例较远的（不相似的）训练实例也会对预测起作用，使预测发生错误。<strong>k值的增大意味着整体的模型变得简单</strong>。<br>如果k=N，那么无论输入实例是什么，都将简单的预测它属于在训练实例中最多的类。这时，模型过于简单，完全忽略训练实例中的大量有用信息，是不可取的。<br>在应用中，<strong>k值一般取一个比较小的数值。通常采用交叉验证法来选取最优的k值</strong>。</p>
+<h4 id="分类决策规则"><a href="#分类决策规则" class="headerlink" title="分类决策规则"></a><strong>分类决策规则</strong></h4><p><strong>k近邻法中的分类决策规则往往是多数表决，即由输入实例的k个邻近的训练实例中的多数类决定输入实例的类。</strong><br><strong>多数表决规则等价于经验风险最小化。</strong></p>
+<h3 id="实现-构造kd树"><a href="#实现-构造kd树" class="headerlink" title="实现-构造kd树"></a><strong>实现-构造kd树</strong></h3><p>kd树是一种对k维空间中的实例点进行存储以便对其进行快速检索的树形数据结构。 </p>
+<h4 id="构造平衡kd树"><a href="#构造平衡kd树" class="headerlink" title="构造平衡kd树"></a><strong>构造平衡kd树</strong></h4><p>输入：k维空间数据集$T={ x_1,x_2,\cdots, x_N}$， 其中$x_i=(x_i^{(1)},x_i^{(2)}, \cdots x_i^{(k)})^T,i=1,2,\cdots,N;$;<br>输出：kd树。<br>（1）开始：构造根结点，根结点对应于包含T的k维空间的超矩形区域。<br>选择以$x^{(1)}$为坐标轴，以T中所有的实例的$x^{(1)}$坐标的<strong>中位数</strong>为切分点，将根结点对应的超矩形区域切分为两个子区域。切分由通过切分点并与坐标轴$x^{(1)}$垂直的超平面实现。<br>由根结点生成深度为1的左、右子结点：左子结点对应左边$x^{(1)}$小于切分点的子区域，右子结点对应于坐标$x^{(1)}$大于切分点的子区域。<br>将落在切分超平面上的实例点保存在根结点。<br>（2）重复：对深度为j的结点，选择$x^{(l)}$为切分的坐标轴，$l=j(mod )k+1$，以该结点的区域中的所有实例的$x^{(l)}$坐标的中位数为切分点，将该结点对应的超矩形区域切分为两个子区域。切分由通过切分点并与坐标轴$x^{(l)}$垂直的超平面实现。<br>由该结点生成的深度为j+1的左、右子结点：左子结点对应坐标$x^{(l)}$小于切分点的子区域，右子结点对应坐标$x^{(l)}$大于切分点的子区域。<br>将落在切分超平面上的实例点保存在该结点。<br>（3）直到两个子区域没有实例存在时停止，从而形成kd树的区域划分。</p>
+<h4 id="搜索kd树"><a href="#搜索kd树" class="headerlink" title="搜索kd树"></a><strong>搜索kd树</strong></h4><p>利用kd树可以省去对大部分数据点的搜索，从而减少搜索的即使是算量。这里以最近邻（k=1）为例加以叙述，同样的方法可以应用到k近邻。<br><strong>用kd树的最近邻搜索</strong><br>输入：已构造的kd树，目标点x；<br>输出：x的最近邻<br>（1）在kd树中找到包含目标点x的叶结点：从根结点出发，递归地向下访问kd树。若目标点x当前维的坐标小于切分点的坐标，则移动到左子结点，否则移动到右子结点。直到子结点为叶节点为止。<br>（2）以此叶节点为“当前最近点”<br>（3）递归地向上回退，在每个结点进行以下操作：<br>（a）如果该结点保存的实例点比当前最近点距离目标点更近，则以该实例点为“当前最近点”<br>（b）当前最近点一定存在于该结点一个子结点对应的区域。检查该子结点对应的区域是否与以目标点为球心，以目标点与“当前最近点”间的距离为半径的超球体相交。<br>如果相交，可能在另一个子结点对应的区域内存在距目标更近的点，移动到另一个子结点，接着，递归地进行最近邻搜索：<br>如果不相交，向上回退<br>（4）当回退到根结点时，搜索结束。最后的“当前最近点”即为x的最近邻点。 </p>
+<p><img src="http://my.csdn.net/uploads/201206/03/1338711447_6884.gif" alt="img"></p>
+<p>如果实例点是随机分布的，kd树搜索的平均计算复杂度是O(logN),这里N是训练实例数。kd树更适合用于训练实例数远大于空间维数时的k近邻搜索，当空间维数接近训练实例数时，它的效率会迅速下降，几乎接近线性扫描。**</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法/" rel="tag"># 算法</a>
+          
+            <a href="/tags/ML/" rel="tag"># ML</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/26/统计学习方法3_感知机/" rel="next" title="统计学习方法3_感知机">
+                <i class="fa fa-chevron-left"></i> 统计学习方法3_感知机
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/02/统计学习方法5_朴素贝叶斯法/" rel="prev" title="统计学习方法5_朴素贝叶斯法">
+                统计学习方法5_朴素贝叶斯法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTI3OC81ODQ2"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="Dou" />
+          <p class="site-author-name" itemprop="name">Dou</p>
+           
+              <p class="site-description motion-element" itemprop="description">爱生活，爱编程</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/3085972463" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xiaodouhua" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/dou-long-chao-7" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#K近邻法"><span class="nav-number">1.</span> <span class="nav-text">K近邻法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#k近邻算法"><span class="nav-number">1.0.1.</span> <span class="nav-text">k近邻算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#k近邻模型"><span class="nav-number">1.0.2.</span> <span class="nav-text">k近邻模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#距离度量"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">距离度量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#K值的选择"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">K值的选择</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分类决策规则"><span class="nav-number">1.0.2.3.</span> <span class="nav-text">分类决策规则</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现-构造kd树"><span class="nav-number">1.0.3.</span> <span class="nav-text">实现-构造kd树</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#构造平衡kd树"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">构造平衡kd树</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#搜索kd树"><span class="nav-number">1.0.3.2.</span> <span class="nav-text">搜索kd树</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dou</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+</body>
+</html>

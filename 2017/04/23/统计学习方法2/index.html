@@ -1,0 +1,1016 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="算法,ML," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="监督学习的目的是找到一个输入输出映射（模型），使得这个模型不仅对训练数据有很好的拟合能力，对于未知数据，它也有很好的预测能力。这篇博客介绍选择和评估模型的标准。本篇博客一共有以下几个重点：训练误差与测试误差、泛化能力、过拟合。
+训练误差与测试误差训练误差是模型$Y={\hat{f}}(X))$关于训练集的平均损失来表示：$R{emp}({\hat{f}})=\frac{1}{N}\sum{i=1}">
+<meta property="og:type" content="article">
+<meta property="og:title" content="统计学习方法2">
+<meta property="og:url" content="xiaodouhua.github.io/2017/04/23/统计学习方法2/index.html">
+<meta property="og:site_name" content="Dou's Blog">
+<meta property="og:description" content="监督学习的目的是找到一个输入输出映射（模型），使得这个模型不仅对训练数据有很好的拟合能力，对于未知数据，它也有很好的预测能力。这篇博客介绍选择和评估模型的标准。本篇博客一共有以下几个重点：训练误差与测试误差、泛化能力、过拟合。
+训练误差与测试误差训练误差是模型$Y={\hat{f}}(X))$关于训练集的平均损失来表示：$R{emp}({\hat{f}})=\frac{1}{N}\sum{i=1}">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/21342-d4f50bd92c98bf51.png?imageMogr2/auto-orient/strip%7CimageView2/2">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/21342-cd4eb53323e1ac52.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-07-01T13:53:37.081Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="统计学习方法2">
+<meta name="twitter:description" content="监督学习的目的是找到一个输入输出映射（模型），使得这个模型不仅对训练数据有很好的拟合能力，对于未知数据，它也有很好的预测能力。这篇博客介绍选择和评估模型的标准。本篇博客一共有以下几个重点：训练误差与测试误差、泛化能力、过拟合。
+训练误差与测试误差训练误差是模型$Y={\hat{f}}(X))$关于训练集的平均损失来表示：$R{emp}({\hat{f}})=\frac{1}{N}\sum{i=1}">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/21342-d4f50bd92c98bf51.png?imageMogr2/auto-orient/strip%7CimageView2/2">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="xiaodouhua.github.io/2017/04/23/统计学习方法2/"/>
+
+
+
+
+
+  <title> 统计学习方法2 | Dou's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?dec9282683a1f4314a3ff6de9767de50";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=58287058";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Dou's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Just For Fun</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'ZYix_7VguysjZTVAL-RC','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="xiaodouhua.github.io/2017/04/23/统计学习方法2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dou">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dou's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                统计学习方法2
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-23T22:20:18+08:00">
+                2017-04-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书/" itemprop="url" rel="index">
+                    <span itemprop="name">读书</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>监督学习的目的是找到一个输入输出映射（模型），使得这个模型不仅对训练数据有很好的拟合能力，对于未知数据，它也有很好的预测能力。这篇博客介绍选择和评估模型的标准。本篇博客一共有以下几个重点：训练误差与测试误差、泛化能力、过拟合。</p>
+<h2 id="训练误差与测试误差"><a href="#训练误差与测试误差" class="headerlink" title="训练误差与测试误差"></a>训练误差与测试误差</h2><p><strong>训练误差</strong>是模型$Y={\hat{f}}(X))$关于训练集的平均损失来表示：$R<em>{emp}({\hat{f}})=\frac{1}{N}\sum</em>{i=1}^{N}L(y<em>{i},{\hat{f}}(x</em>{i}))$</p>
+<p>其中$N$为训练集中数据的个数；损失函数$L(Y,f(X))$在统计学三要素中有介绍，可以看到，训练误差也就是该篇文章所提到的经验损失函数。训练误差的大小，可以说明问题是不是一个容易学习的问题。</p>
+<p><strong>测试误差</strong>是模型$Y={\hat{f}}(X)$关于测试集数据的平均损失：<br>$$R<em>{test}({\hat{f}})=\frac{1}\sum</em>{i=1}^{N’}L(y<em>i, {\hat{f}}(x</em>{i}))$$</p>
+<p>其中${N}’$为测试集中数据的个数。测试误差反应了学习模型对于未知的测试集中数据的预测能力。由于测试误差只是表征了对于测试集中数据的预测能力，我们可以更一般的引申一下，由此引入了模型对于所有未知数据预测能力——泛化能力。</p>
+<p>$$e<em>{test} = \frac{1}{N’}\sum</em>{i=1}^N’ I(y_i \neq f(x_i))$$</p>
+<p>其中 $I(\cdot)$ 为指标函数（indicator function），当$\cdot$为真是返回$1$ ，否则返回 $0$；$N’$ 为测试样本容量，测试准确率（或称为精度（accuracy））：$acc<em>{test} = 1 - e</em>{test}$</p>
+<h2 id="泛化能力"><a href="#泛化能力" class="headerlink" title="泛化能力"></a>泛化能力</h2><h3 id="泛化误差"><a href="#泛化误差" class="headerlink" title="泛化误差"></a>泛化误差</h3><p>泛化能力用来表征学习模型对于未知数据的预测能力。</p>
+<p>很显然，我们没有办法对所有的数据进行预测然后判断来计算一个模型的模型的泛华能力，所以在<strong>实际应用</strong>当中，我们一般还是用的测试集中的数据来近似泛化能力。</p>
+<p>但是，统计学习也在<strong>理论上</strong>试图对学习方法的泛化能力进行了分析，首先给出泛化误差的定义：用学到的$\hat{f}$对未知数据进行预测：  </p>
+<p>$R<em>{exp}(\hat{f})=E[L(Y,\hat{f}(X))]=\int L(y</em>{i},\hat{f}(x_{i}))P(x,y)dxdy$</p>
+<p>泛化误差越小，学习模型的泛化能力越好。可以看到，泛化误差实际上就是统计学三要素中介绍的风险函数。由上篇博客我们可知，泛化误差（风险函数）不可计算。</p>
+<h3 id="过拟合与欠拟合"><a href="#过拟合与欠拟合" class="headerlink" title="过拟合与欠拟合"></a>过拟合与欠拟合</h3><p>训练误差很小而泛化误差很大时称为过拟合，与之相对的是<strong>欠拟合（underfitting）</strong>。例如多项式拟合：</p>
+<p>$$f_M(x, \omega) = \omega_0 + \omega_1x + \omega_2x^2+\dots+\omega<em>Mx^M = \sum</em>{j=0}^M\omega_jx^j$$</p>
+<p>当选取 $M$ 个参数进行训练时，可能出现下列情况：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/21342-d4f50bd92c98bf51.png?imageMogr2/auto-orient/strip%7CimageView2/2" alt="fitting"></p>
+<p>当 $M = 0$ 和 $M = 1$ 时，模型为直线，拟合效果很差，即欠拟合；当 $M = 9$ 时，模型曲线经过了每一个训练数据点，训练误差为 0，但是无法预测新的数据，因此泛化误差很大，即过拟合。</p>
+<h3 id="测试误差的评估方法"><a href="#测试误差的评估方法" class="headerlink" title="测试误差的评估方法"></a>测试误差的评估方法</h3><ol>
+<li>留出法（hold-out）</li>
+<li>交叉验证法（cross validation）</li>
+<li>自助法（bootstrapping）</li>
+<li>调参（parameter tuning）</li>
+</ol>
+<h4 id="留出法"><a href="#留出法" class="headerlink" title="留出法"></a>留出法</h4><p>将数据集 $D$ 划分为 $S, T$：</p>
+<p>$$D = S \cap T, S \cup T = \emptyset$$</p>
+<p>并采用<strong>分层采样（stratified sampling）</strong>，通常选用 $2/3 - 4/5$ 用于训练</p>
+<h4 id="交叉验证法"><a href="#交叉验证法" class="headerlink" title="交叉验证法"></a>交叉验证法</h4><p>将 $D$ 划分为 $k$ 个大小相似的互斥子集：</p>
+<p>$$D = D_1 \cup D_2 \cup \dots \cup D_k, D_i \cap D_j = \emptyset (i \neq j)$$</p>
+<p>每次用 $k-1$ 个子集作为训练集，剩下一个作为测试集，称为<strong>k折交叉验证（k-fold cross validation）</strong>。$k$ 通常取 10，并随机使用不同划分重复 $p$ 次，最终取 $p$ 次结果均值，例如“10次10折交叉验证”。</p>
+<p>假设数据集 $D$ 容量为 $m$，若 $k = m$，则称为<strong>留一法（Leave-One-Out, LOO）</strong>。留一法苹果结果比较准确，但计算开销也相应较大。</p>
+<h4 id="自助法"><a href="#自助法" class="headerlink" title="自助法"></a>自助法</h4><p>以<strong>自助采样法（bootstrap sampling）</strong>为基础，从 $D$ 中有放回地随机抽取 $m$ 次，得到同样包含 $m$ 个样本的 $D’$，$D$ 中有一部分样本会在 $D’$ 中出现多次，而另一部分则未出现，$m$ 次重采样始终未被采到的概率是：</p>
+<p>$$\lim_{m\rightarrow\infty}(1-\frac{1}{m})^m \rightarrow \frac{1}{e} \approx 0.368$$,即 $36.8\%$ 的样本未出现在 $D’$。以 $D’$ 作为训练集，$D - D’$ 作为测试集。自助法在数据集较小、难以划分训练/测试集时很有用。</p>
+<h3 id="性能度量"><a href="#性能度量" class="headerlink" title="性能度量"></a>性能度量</h3><p>除了精度（$acc<em>{test}$）和错误率（$e</em>{test}$），还需要反映任务需求的性能度量指标。</p>
+<ol>
+<li>查准率、查全率与 $F_1$</li>
+<li>ROC &amp; AUC</li>
+<li>代价矩阵</li>
+</ol>
+<h4 id="查准率、查全率与-F-1"><a href="#查准率、查全率与-F-1" class="headerlink" title="查准率、查全率与 $F_1$"></a>查准率、查全率与 $F_1$</h4><p><img src="http://upload-images.jianshu.io/upload_images/21342-cd4eb53323e1ac52.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p>
+<p>$$ TP + FP + TN + FN = 1$$</p>
+<p>查准率（准确率，precision）：<br>$$P = \frac{TP}{TP + FP}$$</p>
+<p>查全率（召回率，recall）：<br>$$R = \frac{TP}{TP + FN}$$</p>
+<p>希望查全率高，意味着更看重决策的准确性，例如在商品推荐系统，尽量减少错误推荐；希望查全率高，意味着“宁可错杀一千”，例如在罪犯检测过程中。</p>
+<p>$$F<em>1 = \frac{2PR}{P+R}$$<br>$$F</em>\beta = \frac{(1+\beta^2)PR}{(\beta^2+P)+R}$$</p>
+<p>当 $\beta = 1$ 时，$F_\beta = F_1$；$\beta \gt 1$ 时，查全率影响更大；$\beta \lt 1$ </p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法/" rel="tag"># 算法</a>
+          
+            <a href="/tags/ML/" rel="tag"># ML</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/22/统计学习方法1/" rel="next" title="统计学习方法1">
+                <i class="fa fa-chevron-left"></i> 统计学习方法1
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/26/统计学习方法3_感知机/" rel="prev" title="统计学习方法3_感知机">
+                统计学习方法3_感知机 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTI3OC81ODQ2"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="Dou" />
+          <p class="site-author-name" itemprop="name">Dou</p>
+           
+              <p class="site-description motion-element" itemprop="description">爱生活，爱编程</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/3085972463" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xiaodouhua" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/dou-long-chao-7" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#训练误差与测试误差"><span class="nav-number">1.</span> <span class="nav-text">训练误差与测试误差</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#泛化能力"><span class="nav-number">2.</span> <span class="nav-text">泛化能力</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#泛化误差"><span class="nav-number">2.1.</span> <span class="nav-text">泛化误差</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#过拟合与欠拟合"><span class="nav-number">2.2.</span> <span class="nav-text">过拟合与欠拟合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试误差的评估方法"><span class="nav-number">2.3.</span> <span class="nav-text">测试误差的评估方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#留出法"><span class="nav-number">2.3.1.</span> <span class="nav-text">留出法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#交叉验证法"><span class="nav-number">2.3.2.</span> <span class="nav-text">交叉验证法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自助法"><span class="nav-number">2.3.3.</span> <span class="nav-text">自助法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性能度量"><span class="nav-number">2.4.</span> <span class="nav-text">性能度量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#查准率、查全率与-F-1"><span class="nav-number">2.4.1.</span> <span class="nav-text">查准率、查全率与 $F_1$</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dou</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1016 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="算法,ML," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="统计学习方法=模型+策略+方法统计学习方法之间的不同，主要来自于其模型、策略、算法的不同。确定了模型、策略和算法，统计学习方法也就确定了。
+Note: 以下以监督学习为基础来进行论述。非监督学习和强化学习同样也拥有这三要素。  
+模型在监督学习当中，我们的目的是学习一个由输入到输出的映射，这个映射就是模型。一般来说，模型有两种形式，一种是概率模型（由条件概率分布表示的模型），另一种形式是非概率模型">
+<meta property="og:type" content="article">
+<meta property="og:title" content="统计学习方法1">
+<meta property="og:url" content="xiaodouhua.github.io/2017/04/22/统计学习方法1/index.html">
+<meta property="og:site_name" content="Dou's Blog">
+<meta property="og:description" content="统计学习方法=模型+策略+方法统计学习方法之间的不同，主要来自于其模型、策略、算法的不同。确定了模型、策略和算法，统计学习方法也就确定了。
+Note: 以下以监督学习为基础来进行论述。非监督学习和强化学习同样也拥有这三要素。  
+模型在监督学习当中，我们的目的是学习一个由输入到输出的映射，这个映射就是模型。一般来说，模型有两种形式，一种是概率模型（由条件概率分布表示的模型），另一种形式是非概率模型">
+<meta property="og:image" content="http://img.blog.csdn.net/20160725111234270">
+<meta property="og:image" content="http://img.blog.csdn.net/20160725111410273">
+<meta property="og:image" content="http://img.blog.csdn.net/20160725111432874">
+<meta property="og:image" content="http://img.blog.csdn.net/20160725111551109">
+<meta property="og:image" content="http://img.blog.csdn.net/20160725111735667">
+<meta property="og:image" content="http://img.blog.csdn.net/20160725111755532">
+<meta property="og:image" content="http://img.blog.csdn.net/20160725111922419">
+<meta property="og:image" content="http://img.blog.csdn.net/20160725111940248">
+<meta property="og:image" content="http://img.blog.csdn.net/20160725111922419">
+<meta property="og:image" content="http://img.blog.csdn.net/20160725111940248">
+<meta property="og:updated_time" content="2017-07-01T12:25:48.165Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="统计学习方法1">
+<meta name="twitter:description" content="统计学习方法=模型+策略+方法统计学习方法之间的不同，主要来自于其模型、策略、算法的不同。确定了模型、策略和算法，统计学习方法也就确定了。
+Note: 以下以监督学习为基础来进行论述。非监督学习和强化学习同样也拥有这三要素。  
+模型在监督学习当中，我们的目的是学习一个由输入到输出的映射，这个映射就是模型。一般来说，模型有两种形式，一种是概率模型（由条件概率分布表示的模型），另一种形式是非概率模型">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20160725111234270">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="xiaodouhua.github.io/2017/04/22/统计学习方法1/"/>
+
+
+
+
+
+  <title> 统计学习方法1 | Dou's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?dec9282683a1f4314a3ff6de9767de50";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=58287058";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Dou's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Just For Fun</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'ZYix_7VguysjZTVAL-RC','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="xiaodouhua.github.io/2017/04/22/统计学习方法1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dou">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dou's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                统计学习方法1
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-22T20:20:18+08:00">
+                2017-04-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书/" itemprop="url" rel="index">
+                    <span itemprop="name">读书</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="统计学习方法-模型-策略-方法"><a href="#统计学习方法-模型-策略-方法" class="headerlink" title="统计学习方法=模型+策略+方法"></a><strong>统计学习方法=模型+策略+方法</strong></h2><p>统计学习方法之间的不同，主要来自于其模型、策略、算法的不同。确定了模型、策略和算法，统计学习方法也就确定了。</p>
+<p><strong>Note:</strong> 以下以监督学习为基础来进行论述。非监督学习和强化学习同样也拥有这三要素。  </p>
+<h3 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h3><p>在监督学习当中，我们的<strong>目的是学习一个由输入到输出的映射，这个映射就是模型</strong>。一般来说，模型有两种形式，一种是概率模型（由条件概率分布表示的模型），另一种形式是非概率模型（由决策函数表示的模型）。我们根据实际情况和具体的学习方法来决定是用概率模型还是用非概率模型。   </p>
+<p>模型的假设空间（hypothesis space）是一集合：由输入空间到输出空间所有映射的集合，包含所有可能的条件概率分布或决策函数。  </p>
+<p>假设空间${ F}={ f|Y=f(X)} $,这时候${\scr F}$是决策函数的集合，由参数向量决定： ${F}={ f|Y=f_\theta(X)}$，$\theta$取值于n维欧式空间$R^n$,称为参数空间  。</p>
+<p>表示为条件概率集合${ F}={ P|P(Y|X)} $,${F}$是一个参数向量决定的条件概率分布簇。  </p>
+<h3 id="策略"><a href="#策略" class="headerlink" title="策略"></a>策略</h3><p>统计学习的目标在于从假设空间中选取最优模型。策略即为按照什么样的准则或方法来找到这个最优模型。首先介绍损失函数和风险函数。 </p>
+<ul>
+<li><strong>损失函数（代价函数）： 一次预测的好坏</strong></li>
+<li><strong>风险函数： 平均意义下模型预测的好坏</strong> </li>
+</ul>
+<p>包括：</p>
+<p>损失函数：</p>
+<ul>
+<li>0-1损失函数 0-1 loss function</li>
+<li>平方损失函数 quadratic loss function</li>
+<li>绝对损失函数 absolute loss function</li>
+<li>对数损失函数 </li>
+</ul>
+<p><img src="http://img.blog.csdn.net/20160725111234270" alt="这里写图片描述"><br><strong>2）风险函数</strong></p>
+<p><img src="http://img.blog.csdn.net/20160725111410273" alt="这里写图片描述"></p>
+<p>模型f(x)关于训练数据集的平均损失称为经验风险（empirical risk）或经验损失（empirical loss），记作$R_{emp} $.</p>
+<p><img src="http://img.blog.csdn.net/20160725111432874" alt="这里写图片描述"> </p>
+<p>期望风险Rexp(f)是模型关于联合分布的期望损失，经验风险Remp(f)是模型关于训练样本集的平均损失。根据大数定律，当样本容量N趋于无穷时，经验风险Rempf(x)趋于期望风险Rexpf(x)，所以一个很自然的想法是用经验风险估计期望风险。但是，<strong>由于现实中训练样本数目有限甚至很小，所以用经验风险估计期望风险常常并不理想，常常会导致过拟合。为了防止过拟合现象，结构风险最小化这个策略被提了出来。</strong></p>
+<p>当样本容量很小时， 经验风险最小化学习的效果未必很好， 会产生“ 过拟合over-fitting”。</p>
+<p>结构风险最小化 structure risk minimization， 为防止过拟合提出的策略， 等价于正则化（ regularization） ， 加入正则化项regularizer， 或罚项 penalty term。惩罚项的大小与模型复杂度有关。</p>
+<p><strong>3)经验风险最小化</strong></p>
+<p>在假设空间，损失函数以及训练数据集确定的情况下，经验风险函数式就可以确定，经验风险最小化（empirical risk<br>minimizatiion, ERM）的策略认为，经验风险最小的模型是最优模型。 <img src="http://img.blog.csdn.net/20160725111551109" alt="这里写图片描述">   </p>
+<p>当样本容量是够大时，经验风险最小化能保证有很好的学习效果，在现实中被广泛应用，比如，极大似然估计（maximum likelihood estimation）就是经验风险最小化的一个例子，当模型是条件概率分布，损失函数是对数损失函数时，经验风险最小化就等价于极大似然估计。但是，当样本容量很小时，经验风险最小化学习的效果就未必很好，会产生“过拟合（over-fitting）”现象。</p>
+<p><strong>4)结构化风险最小化</strong></p>
+<p>结构化风险最小化（structural risk minimization, SRM）是为了防止过拟合而提出来的策略。结构风险在经验风险上加上表示模型复杂度的正则化项（regularizer）或罚项（penalty term）。在假设空间，损失函数以及训练数据集确定的情况下，结构风险的定义是：<br><img src="http://img.blog.csdn.net/20160725111735667" alt="这里写图片描述"><br>其中J(f)为模型的复杂度，是定义在假设空间 F 上的泛函，模型 f 越复杂，复杂度J(f)就越大；反之，模型 f 越简单，复杂度J(f)就越小，也就是说，<strong>复杂度表示了对复杂模型的惩罚</strong>，λ≥0是系数，用以权衡经验风险和模型复杂度，结构风险小需要经验风险与模型复杂度同时小，结构风险小的模型往往对训练数据以及未知的测试数据都有较好的预测。<br>结构风险最小化的策略认为结构风险最小的模型是最优的模型：<br><img src="http://img.blog.csdn.net/20160725111755532" alt="这里写图片描述"></p>
+<p>综上，我们在统计学习中的策略一般有两种——经验风险最小化，结构风险最小化。此时，我们就把统计学习问题转为了求解下面目标函数的优化问题：<br><img src="http://img.blog.csdn.net/20160725111922419" alt="这里写图片描述"> 或者： <img src="http://img.blog.csdn.net/20160725111940248" alt="这里写图片描述"></p>
+<p>综上，我们在统计学习中的策略一般有两种——经验风险最小化，结构风险最小化。此时，我们就把统计学习问题转为了求解下面目标函数的优化问题：<br><img src="http://img.blog.csdn.net/20160725111922419" alt="这里写图片描述"> 或者： <img src="http://img.blog.csdn.net/20160725111940248" alt="这里写图片描述"></p>
+<h2 id="模型评估与模型选择"><a href="#模型评估与模型选择" class="headerlink" title="模型评估与模型选择"></a>模型评估与模型选择</h2><p>算法是指学习模型的具体计算方法，统计学习基于训练数据集，根据学习策略，从假设空间中选择最优模型，最后需要考虑用什么样的计算方式求解最优模型。这时，统计学习问题归结为最优化问题，统计学习的方法成为求解最优化问题的算法。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法/" rel="tag"># 算法</a>
+          
+            <a href="/tags/ML/" rel="tag"># ML</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/06/几道面试笔试题/" rel="next" title="几道面试笔试题">
+                <i class="fa fa-chevron-left"></i> 几道面试笔试题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/23/统计学习方法2/" rel="prev" title="统计学习方法2">
+                统计学习方法2 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTI3OC81ODQ2"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="Dou" />
+          <p class="site-author-name" itemprop="name">Dou</p>
+           
+              <p class="site-description motion-element" itemprop="description">爱生活，爱编程</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/3085972463" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xiaodouhua" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/dou-long-chao-7" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#统计学习方法-模型-策略-方法"><span class="nav-number">1.</span> <span class="nav-text">统计学习方法=模型+策略+方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模型"><span class="nav-number">1.1.</span> <span class="nav-text">模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#策略"><span class="nav-number">1.2.</span> <span class="nav-text">策略</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型评估与模型选择"><span class="nav-number">2.</span> <span class="nav-text">模型评估与模型选择</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dou</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+</body>
+</html>
