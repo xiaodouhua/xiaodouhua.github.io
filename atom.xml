@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="xiaodouhua.github.io/"/>
-  <updated>2017-07-04T14:49:05.694Z</updated>
+  <updated>2017-07-04T15:08:30.540Z</updated>
   <id>xiaodouhua.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="xiaodouhua.github.io/2017/07/04/%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB/"/>
     <id>xiaodouhua.github.io/2017/07/04/一个简单的验证码识别/</id>
     <published>2017-07-04T14:40:18.000Z</published>
-    <updated>2017-07-04T14:49:05.694Z</updated>
+    <updated>2017-07-04T15:08:30.540Z</updated>
     
     <content type="html"><![CDATA[<p>一个验证码识别实验，欢迎star。<a href="https://github.com/xiaodouhua/captcha_recognition" target="_blank" rel="external">https://github.com/xiaodouhua/captcha_recognition</a><br>实验用到的库主要是sklearn，建议下载anaconda即可</p>
 <p>实验主要工作有以下几点：</p>
@@ -35,14 +35,14 @@
 <li>scrapy.py: 爬取数据集</li>
 <li>slice_pic.py: 图片处理，切割等</li>
 <li>ml.py ：利用sklearn库进行数据特征提取，pca降维，svm分类，保存了模型</li>
-<li>predict.py: 利用保存的预测<br>实验数据如下 ：<br><img src="https://github.com/xiaodouhua/captcha_recognition/blob/master/0.jpg" alt="image">  </li>
+<li>predict.py: 利用保存的预测<br>实验数据如下 ：<br><img src="https://raw.githubusercontent.com/xiaodouhua/captcha_recognition/master/0.jpg" alt="image">  </li>
 </ul>
 <p>共爬取了1000张，最后由于人工去标注的量太大，所以只用了分割后的910张去训练和测试准确率<br>训练数据为910*0.85，剩下的去测试，最后经过pca调参之后选取了降维到50个特征，切割后的单个图片的验证码识别率为85%~86%，所以验证码的识别率大概为0.85^4≈50%，效果一般，但是应该可以用了。</p>
 <p>总结：</p>
 <ul>
 <li>切割的非常好，因为数据集的原因，观察观察再观察，发现数据切割只要固定切割就行了，不需要发现空白竖线什么的（反而不好发现），而且恰好是均等分割，后面特征处理非常好处理。 </li>
 </ul>
-<p><img src="https://github.com/xiaodouhua/captcha_recognition/blob/master/3.jpg" alt="image"> </p>
+<p><img src="https://raw.githubusercontent.com/xiaodouhua/captcha_recognition/master/3.jpg" alt="image"> </p>
 <ul>
 <li>训练结果在单个字符上也是不错的，在经过pca各种参数维度降维之后，选取了50。</li>
 </ul>
@@ -50,7 +50,7 @@
 <ul>
 <li>噪音线条和数字字母的颜色太相近，很难去去噪，只去除了黑点和颜色比较深的部分，去除之后如下：</li>
 </ul>
-<p><img src="https://github.com/xiaodouhua/captcha_recognition/blob/master/1.jpg" alt="image"><br><img src="https://github.com/xiaodouhua/captcha_recognition/blob/master/2.jpg" alt="image"> </p>
+<p><img src="https://raw.githubusercontent.com/xiaodouhua/captcha_recognition/master/1.jpg" alt="image"><br><img src="https://raw.githubusercontent.com/xiaodouhua/captcha_recognition/master/2.jpg" alt="image"> </p>
 <ul>
 <li>识别只用了机器学习的算法，看网上的资料说神经网络应该效果不错的。还有水滴算法等</li>
 <li>数据集还是太少，人工需要把每个切割后的图片放到对应文件里面，很费时。如果数据量大的话，算法的准确率应该会再上一台阶。</li>
